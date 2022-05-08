@@ -13,7 +13,7 @@ export default function LogInScreen() {
         if (!email || !password) return;
         try {
             let response = await login(email, password);
-            if (response.accessToken) authUser(response.accessToken);
+            if (response.token) authUser(response.token);
         } catch (error) {
             openAlert();
         }
