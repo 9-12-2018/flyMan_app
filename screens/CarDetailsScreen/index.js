@@ -1,11 +1,17 @@
-import { SafeAreaView, Text, StyleSheet, View, Button } from 'react-native'
-import React from 'react'
-import { autos } from './mockUpCars'
-import { Image } from 'react-native'
-
-
+import React, { useState } from 'react';
+import { SafeAreaView, Text, StyleSheet, View, Button } from 'react-native';
+import { autos } from './mockUpCars';
+import { Image } from 'react-native';
+import ICON_NAME from '../../utils/icons';
+import CarButton from '../../components/CarButton';
 
 export default function CarDetailScreen() {
+    const [carOpen, setCarOpen] = useState(false);
+    
+    const handleCarOpen = () => {
+        setCarOpen(prev => !prev);
+    }
+
     return (
         <SafeAreaView style={styles.container}>
             <View style={styles.card}>
@@ -17,11 +23,10 @@ export default function CarDetailScreen() {
             <Text style={styles.card}>Modelo: {autos[0].description}</Text>
             <Text style={styles.card}>Patente: {autos[0].plate}</Text>
             <Text style={styles.card}>Nivel de combustible: {autos[0].fuelLevel}</Text>
-            <Text style={styles.card}>Tipo de combustible: {autos[0].fuelType}</Text>
-            <Button                          
-                title="Abrir auto"
-                color="#841584"
-                accessibilityLabel="Learn more about this purple button"
+            <CarButton
+                style={styles.actionButtons}
+                icon={!carOpen ? ICON_NAME.UNLOCK : ICON_NAME.LOCK}
+                onPress={handleCarOpen}
             />
             </View>
             
@@ -53,7 +58,9 @@ const styles = StyleSheet.create({
         textAlign: 'center',
         fontSize: 16,
         marginBottom: 10
-      }
-
-    
+      },
+    actionButtons: {
+        width: 25,
+        borderRadius: 50,
+    }
 });
