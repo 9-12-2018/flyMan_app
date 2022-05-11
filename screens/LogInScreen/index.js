@@ -1,11 +1,16 @@
-import { SafeAreaView, View, TextInput, Dimensions, StyleSheet, Button, Alert } from 'react-native'
+import { SafeAreaView, View, TextInput, Dimensions, StyleSheet, Button, Alert, TouchableOpacity } from 'react-native'
 import React, { useState, useContext } from 'react'
+import Icon from 'react-native-vector-icons/FontAwesome';
 import GlobalContext from '../../components/globals/context'
 import { login } from '../../api/users'
 
 export default function LogInScreen() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [isPasswordVisible, setIsPasswordVisible] = useState(true);
+
+    const PASSWORD_VISIBLE = 'eye';
+    const PASSWORD_NOT_VISIBLE = 'eye-slash';
 
     const { authUser } = useContext(GlobalContext);
 
@@ -19,6 +24,8 @@ export default function LogInScreen() {
         }
     }
 
+    const onPress = () => setIsPasswordVisible(prev => !prev);
+
     return (
         <SafeAreaView style={styles.container}>
             <View style={styles.inputSection}>
@@ -27,13 +34,28 @@ export default function LogInScreen() {
                     value={email}
                     placeholder={'Email'}
                     onChangeText={setEmail}
+                    autoCapitalize='none'
+                    autoCorrect={false}
+                    keyboardType='email-address'
                 />
-                <TextInput
-                    style={styles.inputStyle}
-                    value={password}
-                    placeholder={'Password'}
-                    onChangeText={setPassword}
-                />
+                <View style={styles.passwordContainer}>
+                    <TextInput
+                        style={styles.passwordInputStyle}
+                        value={password}
+                        placeholder={'Password'}
+                        onChangeText={setPassword}
+                        secureTextEntry={isPasswordVisible}
+                    />
+                    <TouchableOpacity
+                        onPress={onPress}
+                    >
+                        <Icon
+                            name={isPasswordVisible ? PASSWORD_VISIBLE : PASSWORD_NOT_VISIBLE}
+                            size={20}
+                            color="#418df0"
+                        />
+                    </TouchableOpacity>
+                </View>
             </View>
             <View style={[styles.buttons]}>
                 <Button
@@ -64,6 +86,20 @@ const styles = StyleSheet.create({
         marginTop: 25,
         borderBottomColor: "#4a628a",
         borderBottomWidth: 2
+    },
+    passwordContainer: {
+        width: Dimensions.get('window').width - 100,
+        flexDirection: 'row',
+        justifyContent: 'center',
+        alignItems: 'flex-end',
+        borderBottomColor: "#4a628a",
+        borderBottomWidth: 2,
+        paddingBottom: 10,
+    },
+    passwordInputStyle: {
+        flex: 1,
+        fontSize: 20,
+        marginTop: 25,
     },
     buttons: {
         width: Dimensions.get('window').width - 15,
