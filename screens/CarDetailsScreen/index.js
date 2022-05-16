@@ -15,19 +15,19 @@ export default function CarDetailScreen() {
     return (
         <SafeAreaView style={styles.container}>
             <View style={styles.card}>
-            <Image source={{uri: 'https://mykeego-public-images.s3.amazonaws.com/tenant-123/Car/bKhOPSTLMSWdxGTcykkWWJYwEYrKgUugxUIwxIXL.png'}}
-                    style={styles.image}
-            />
-            <Text style={styles.card}>Estacionamiento: {autos[0].parkingName}</Text>
-            <Text style={styles.card}>Ubicacion: {autos[0].idParkingSlot}</Text>
-            <Text style={styles.card}>Modelo: {autos[0].description}</Text>
-            <Text style={styles.card}>Patente: {autos[0].plate}</Text>
-            <Text style={styles.card}>Nivel de combustible: {autos[0].fuelLevel}</Text>
-            <CarButton
-                style={styles.actionButtons}
-                icon={!carOpen ? ICON_NAME.UNLOCK : ICON_NAME.LOCK}
-                onPress={handleCarOpen}
-            />
+              <Image source={{uri: 'https://mykeego-public-images.s3.amazonaws.com/tenant-123/Car/bKhOPSTLMSWdxGTcykkWWJYwEYrKgUugxUIwxIXL.png'}}
+                      style={styles.image}
+              />
+              <Text style={styles.card}>Estacionamiento: {autos[0].parkingName}</Text>
+              <Text style={styles.card}>Ubicacion: {autos[0].idParkingSlot}</Text>
+              <Text style={styles.card}>Modelo: {autos[0].description}</Text>
+              <Text style={styles.card}>Patente: {autos[0].plate}</Text>
+              <Text style={styles.card}>Nivel de combustible: {autos[0].fuelLevel}</Text>
+              <CarButton
+                  style={styles.actionButtons}
+                  icon={!carOpen ? ICON_NAME.UNLOCK : ICON_NAME.LOCK}
+                  onPress={handleCarOpen}
+              />
             </View>
             
         </SafeAreaView>
