@@ -17,6 +17,13 @@ const DATA = [
     },
 ];
 
+const REPORTE = [
+    {
+        id: 'vvv',
+        title: 'Reporte de Usuario'
+    }
+]
+
 const CarItem = ({ item, onPress }) => (
     <TouchableOpacity onPress={onPress} style={styles.item}>
         <Text style={styles.title}>{item.title}</Text>
@@ -33,11 +40,25 @@ export default function HomeScreen({ navigation }) {
         );
     };
 
+    const renderReportItem = ({ item }) => {
+        return (
+            <CarItem
+                item={item}
+                onPress={() => navigation.navigate('UserReports')}
+            />
+        );
+    };
+
     return (
         <SafeAreaView style={styles.container}>
             <FlatList
                 data={DATA}
                 renderItem={renderCarItem}
+                keyExtractor={item => item.id}
+            />
+            <FlatList
+                data={REPORTE}
+                renderItem={renderReportItem}
                 keyExtractor={item => item.id}
             />
         </SafeAreaView>

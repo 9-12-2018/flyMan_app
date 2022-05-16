@@ -3,6 +3,7 @@ import { Button } from 'react-native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import HomeScreen from '../../screens/HomeScreen';
 import CarDetailScreen from '../../screens/CarDetailsScreen';
+import UserReports from '../../screens/UserReports';
 import LogInScreen from '../../screens/LogInScreen';
 import GlobalContext from '../../components/globals/context';
 import { saveToken, retrieveToken, removeToken } from '../../services/secureStorage';
@@ -41,7 +42,7 @@ export default function index() {
         <GlobalContext.Provider value={{ authUser }}>
             <Stack.Navigator>
                 {
-                    (isAuthenticated())
+                    (true)
                         ? (
                             <>
                                 <Stack.Screen
@@ -52,6 +53,7 @@ export default function index() {
                                     }}
                                 />
                                 <Stack.Screen name='Car Detail' component={CarDetailScreen} options={{ headerBackTitle: 'Volver' }} />
+                                <Stack.Screen name='UserReports' component={UserReports} options={{ headerBackTitle: 'Volver' }} />
                             </>
                         )
                         : (
