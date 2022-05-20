@@ -42,7 +42,7 @@ export default function index() {
         <GlobalContext.Provider value={{ authUser }}>
             <Stack.Navigator>
                 {
-                    (true)
+                    (isAuthenticated())
                         ? (
                             <>
                                 <Stack.Screen
