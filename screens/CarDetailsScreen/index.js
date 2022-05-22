@@ -6,7 +6,7 @@ import ICON_NAME from '../../utils/icons';
 import CarButton from '../../components/CarButton';
 
 export default function CarDetailScreen() {
-    const [carOpen, setCarOpen] = useState(false);
+    c [carOpen, setCarOpen] = useState(false);
     
     const handleCarOpen = () => {
         setCarOpen(prev => !prev);
