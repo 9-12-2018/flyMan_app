@@ -3,14 +3,12 @@ import { BASE_URL } from '@env'
 
 const login = async (email, password) => {
     const url = `${BASE_URL}/users/login`
-    let response;
     try {
-        response = await axios.post(url, { email, password });
+        let response = await axios.post(url, { email, password });
+        return response.data;
     } catch (error) {
         throw error;
     }
-
-    return response.data;
 }
 
 export { login }
