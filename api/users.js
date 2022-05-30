@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { BASE_URL } from '../utils/connections';
+import { BASE_URL } from '@env'
 
 const login = async (email, password) => {
     const url = `${BASE_URL}/users/login`
