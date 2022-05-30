@@ -2,7 +2,7 @@ import { SafeAreaView, View, TextInput, Dimensions, StyleSheet, Button, Alert, T
 import React, { useState, useContext } from 'react'
 import Icon from 'react-native-vector-icons/FontAwesome';
 import GlobalContext from '../../components/globals/context'
-import { login } from '../../api/users'
+import { login as apiLogin } from '../../api/users'
 
 export default function LogInScreen() {
     const [email, setEmail] = useState('');
@@ -12,13 +12,13 @@ export default function LogInScreen() {
     const PASSWORD_VISIBLE = 'eye';
     const PASSWORD_NOT_VISIBLE = 'eye-slash';
 
-    const { authUser } = useContext(GlobalContext);
+    const { login } = useContext(GlobalContext);
 
     const userLogin = async () => {
         if (!email || !password) return;
         try {
-            let response = await login(email, password);
-            if (response.token) authUser(response.token);
+            let response = await apiLogin(email, password);
+            if (response.token) login(response.token);
         } catch (error) {
             openAlert();
         }
