@@ -21,10 +21,10 @@ export default function index({ token, login, logout }) {
                         ? (
                             <>
                                 <Stack.Screen
-                                    name='Home'
-                                    component={HomeScreen}
+                                    name='Reservas'
+                                    component={Vehicles}
                                     options={{
-                                        headerLeft: () => <Button title={"Log out"} onPress={async () => { await logout() }} />
+                                        headerLeft: () => <Button title={"Log out"} onPress={() => logout()} />
                                     }}
                                 />
                                 <Stack.Screen name='Car Detail' component={CarDetailScreen} options={{ headerBackTitle: 'Volver' }} />
@@ -32,7 +32,7 @@ export default function index({ token, login, logout }) {
                             </>
                         )
                         : (
-                            <Stack.Screen name='Log In' component={LogInScreen} />
+                            <Stack.Screen name='Iniciar Sesión' component={LogInScreen} />
                         )
                 }
             </Stack.Navigator>

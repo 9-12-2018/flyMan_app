@@ -1,5 +1,6 @@
-import { SafeAreaView, View, TextInput, Dimensions, StyleSheet, Button, Alert, TouchableOpacity } from 'react-native'
 import React, { useState, useContext } from 'react'
+import { Box, Text, Heading, VStack, FormControl, Input, Link, Button, HStack, Center, NativeBaseProvider } from "native-base";
+import { Dimensions, StyleSheet, Alert, TextInput } from 'react-native'
 import Icon from 'react-native-vector-icons/FontAwesome';
 import GlobalContext from '../../components/globals/context'
 import { login as apiLogin } from '../../api/users'
@@ -26,89 +27,49 @@ export default function LogInScreen() {
 
     const onPress = () => setIsPasswordVisible(prev => !prev);
 
-    return (
-        <SafeAreaView style={styles.container}>
-            <View style={styles.inputSection}>
-                <TextInput
-                    style={styles.inputStyle}
-                    value={email}
-                    placeholder={'Email'}
-                    onChangeText={setEmail}
-                    autoCapitalize='none'
-                    autoCorrect={false}
-                    keyboardType='email-address'
-                />
-                <View style={styles.passwordContainer}>
-                    <TextInput
-                        style={styles.passwordInputStyle}
-                        value={password}
-                        placeholder={'Password'}
-                        onChangeText={setPassword}
-                        secureTextEntry={isPasswordVisible}
-                    />
-                    <TouchableOpacity
-                        onPress={onPress}
-                    >
-                        <Icon
-                            name={isPasswordVisible ? PASSWORD_VISIBLE : PASSWORD_NOT_VISIBLE}
-                            size={20}
-                            color="#418df0"
-                        />
-                    </TouchableOpacity>
-                </View>
-            </View>
-            <View style={[styles.buttons]}>
-                <Button
-                    title={'Iniciar Sesion'}
-                    onPress={userLogin}
-                />
-            </View>
-        </SafeAreaView>
-    )
-}
+    const windowW = Dimensions.get("screen").width;
+    const windowH = Dimensions.get("screen").height
 
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: '#fff',
-        alignItems: 'center',
-        justifyContent: 'center',
-    },
-    inputSection: {
-        width: Dimensions.get('window').width - 15,
-        flex: 2,
-        alignItems: 'center',
-        justifyContent: 'center',
-    },
-    inputStyle: {
-        width: Dimensions.get('window').width - 100,
-        fontSize: 20,
-        marginTop: 25,
-        borderBottomColor: "#4a628a",
-        borderBottomWidth: 2
-    },
-    passwordContainer: {
-        width: Dimensions.get('window').width - 100,
-        flexDirection: 'row',
-        justifyContent: 'center',
-        alignItems: 'flex-end',
-        borderBottomColor: "#4a628a",
-        borderBottomWidth: 2,
-        paddingBottom: 10,
-    },
-    passwordInputStyle: {
-        flex: 1,
-        fontSize: 20,
-        marginTop: 25,
-    },
-    buttons: {
-        width: Dimensions.get('window').width - 15,
-        margin: 10
-    },
-    buttonNative: {
-        height: 80,
-        margin: 10
-    }
-});
+    return (
+        <NativeBaseProvider>
+          <Center flex={1} px="3">
+            <Center w="100%">
+                <Box p="2" py="8" width={windowW}>
+                  <Heading size="lg" fontWeight="600" color="coolGray.800" _dark={{
+                  color: "warmGray.50"
+                  }}>
+                      Flyman
+                  </Heading>
+                  <Heading mt="1" _dark={{
+                  color: "warmGray.200"
+                  }} color="coolGray.600" fontWeight="medium" size="xs">
+                      Inicie sesión para continuar
+                  </Heading>
+                  <VStack space={1} mt="5">
+                      <FormControl>
+                      <FormControl.Label>Email</FormControl.Label>
+                      <Input
+                        value={email}
+                        onChangeText={(e) => setEmail(e)}
+                        placeholder="Ingrese su email" />
+                      </FormControl>
+                      <FormControl>
+                      <FormControl.Label>Contraseña</FormControl.Label>
+                      <Input
+                        type="password"
+                        value={password}
+                        onChangeText={(e) => setPassword(e)}
+                        placeholder="Ingrese su contraseña" />
+                      </FormControl>
+                      <Button mt="2" colorScheme="indigo" onPress={userLogin}>
+                      Iniciar Sesión
+                      </Button>
+                  </VStack>
+                </Box>
+            </Center>
+          </Center>
+        </NativeBaseProvider>
+    );
+}
 
 const openAlert = () => Alert.alert('Ups!', 'Ocurrio un error al hacer login.', [{ text: 'OK', style: 'cancel' }]);

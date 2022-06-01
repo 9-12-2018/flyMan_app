@@ -54,7 +54,7 @@ export default function CarDetailScreen() {
   const [tires, setTires] = useState(false);
   const [securityKit, setSecurityKit] = useState(false);
   const [documents, setDocuments] = useState(false);
-  const [cleanliness , setCleanliness ] = useState(false);
+  const [cleanliness , setCleanliness ] = useState(1);
   const [fuelLoad, setFuelLoad ] = useState(false);
 
   const stepOneData = {

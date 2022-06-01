@@ -1,15 +1,41 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { SafeAreaView, Text, StyleSheet, View, Button } from 'react-native';
-import { autos } from './mockUpCars';
+import { useToast } from 'native-base';
 import { Image } from 'react-native';
 import ICON_NAME from '../../utils/icons';
 import CarButton from '../../components/CarButton';
+import Loader from '../../components/Loader'
+import { fetchReservationById } from '../../api/reservations';
 
-export default function CarDetailScreen() {
+export default function CarDetailScreen({ route }) {
+    const [reservation, setReservation] = useState(null);
+    const [startReservation, setStartReservation] = useState(false);
+    const [loading, setLoading] = useState(false);
     const [carOpen, setCarOpen] = useState(false);
     
+    const { id } = route.params;
+
+    useEffect(async () => {
+        setLoading(true);
+        try {
+          let response = await fetchReservationById(id);
+          setReservation(response);
+          setLoading(false);
+        } catch (error) {
+          // console.log(error);
+        }
+    }, [])
+
+    const handleStartReservation = () => {
+        setStartReservation(prev => !prev);
+    }
+
     const handleCarOpen = () => {
         setCarOpen(prev => !prev);
+    }
+
+    if (loading) {
+        return <Loader />;
     }
 
     return (
@@ -18,16 +44,26 @@ export default function CarDetailScreen() {
               <Image source={{uri: 'https://mykeego-public-images.s3.amazonaws.com/tenant-123/Car/bKhOPSTLMSWdxGTcykkWWJYwEYrKgUugxUIwxIXL.png'}}
                       style={styles.image}
               />
-              <Text style={styles.card}>Estacionamiento: {autos[0].parkingName}</Text>
-              <Text style={styles.card}>Ubicacion: {autos[0].idParkingSlot}</Text>
-              <Text style={styles.card}>Modelo: {autos[0].description}</Text>
-              <Text style={styles.card}>Patente: {autos[0].plate}</Text>
-              <Text style={styles.card}>Nivel de combustible: {autos[0].fuelLevel}</Text>
-              <CarButton
-                  style={styles.actionButtons}
-                  icon={!carOpen ? ICON_NAME.UNLOCK : ICON_NAME.LOCK}
-                  onPress={handleCarOpen}
-              />
+              <Text style={styles.card}>Reservation: {id}</Text>
+              <Text style={styles.card}>Estacionamiento: {reservation?.car?.parkingName}</Text>
+              <Text style={styles.card}>Ubicacion: {reservation?.car?.idParkingSlot}</Text>
+              <Text style={styles.card}>Patente: {reservation?.car?.plate}</Text>
+              <Text style={styles.card}>Nivel de combustible: {reservation?.car?.fuelLevel}</Text>
+              {
+                  !startReservation ? (
+                    <CarButton
+                      style={styles.actionButtons}
+                      title="Iniciar Reserva"
+                      onPress={handleStartReservation}
+                    />
+                  ) : (
+                    <CarButton
+                      style={styles.actionButtons}
+                      icon={!carOpen ? ICON_NAME.UNLOCK : ICON_NAME.LOCK}
+                      onPress={handleCarOpen}
+                    />
+                  )
+              }
             </View>
             
         </SafeAreaView>
@@ -53,7 +89,7 @@ const styles = StyleSheet.create({
         shadowOpacity: 0.26,
         elevation: 8,
         backgroundColor: 'white',
-        padding: 20,
+        padding: 10,
         borderRadius: 10,
         textAlign: 'center',
         fontSize: 16,

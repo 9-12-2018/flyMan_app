@@ -24,9 +24,10 @@ export default StepThree = ({ data }) => {
             {
               RATING_NUM.map((rate) => (
                 <RadioButtonItem
+                  key={rate}
                   value={rate}
                   label={rate}
-                  style={styles.marginLeft} 
+                  style={styles.marginLeft}
                 />
               ))
             }
