@@ -1,12 +1,11 @@
 import React from 'react';
 import { Button } from 'react-native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import HomeScreen from '../../screens/HomeScreen';
 import CarDetailScreen from '../../screens/CarDetailsScreen';
 import UserReports from '../../screens/UserReports';
 import LogInScreen from '../../screens/LogInScreen';
+import Vehicles from '../../screens/Vehicles';
 import GlobalContext from '../../components/globals/context';
-import { saveToken, removeToken } from '../../services/secureStorage';
 
 const Stack = createNativeStackNavigator();
 
