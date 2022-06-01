@@ -1,17 +1,12 @@
 import React, { useState, useContext } from 'react'
-import { Box, Text, Heading, VStack, FormControl, Input, Link, Button, HStack, Center, NativeBaseProvider } from "native-base";
-import { Dimensions, StyleSheet, Alert, TextInput } from 'react-native'
-import Icon from 'react-native-vector-icons/FontAwesome';
+import { Box, Heading, VStack, FormControl, Input, Button, Center, NativeBaseProvider } from "native-base";
+import { Dimensions, Alert } from 'react-native'
 import GlobalContext from '../../components/globals/context'
 import { login as apiLogin } from '../../api/users'
 
 export default function LogInScreen() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [isPasswordVisible, setIsPasswordVisible] = useState(true);
-
-  const PASSWORD_VISIBLE = 'eye';
-  const PASSWORD_NOT_VISIBLE = 'eye-slash';
 
   const { login } = useContext(GlobalContext);
 
@@ -25,10 +20,7 @@ export default function LogInScreen() {
     }
   }
 
-  const onPress = () => setIsPasswordVisible(prev => !prev);
-
   const windowW = Dimensions.get("screen").width;
-  const windowH = Dimensions.get("screen").height
 
   return (
     <NativeBaseProvider>
@@ -63,7 +55,8 @@ export default function LogInScreen() {
                   type="password"
                   value={password}
                   onChangeText={(e) => setPassword(e)}
-                  placeholder="Ingrese su contraseña" />
+                  placeholder="Ingrese su contraseña"
+                />
               </FormControl>
               <Button mt="2" colorScheme="indigo" onPress={userLogin}>
                 Iniciar Sesión
