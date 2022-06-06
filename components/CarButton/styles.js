@@ -20,6 +20,9 @@ export default styles = StyleSheet.create({
         shadowRadius: 9.51, elevation: 15,
     },
     buttonText: {
-        color: 'black'
+        color: 'black',
+    },
+    isSelected: {
+        backgroundColor: 'green',
     }
 });
