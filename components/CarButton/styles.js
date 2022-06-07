@@ -22,7 +22,10 @@ export default styles = StyleSheet.create({
     buttonText: {
         color: 'black',
     },
-    isSelected: {
+    isOpen: {
         backgroundColor: 'green',
+    },
+    isClosed: {
+        backgroundColor: 'red',
     }
 });

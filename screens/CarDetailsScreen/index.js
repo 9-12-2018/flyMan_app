@@ -1,7 +1,7 @@
 
 import React, { useEffect, useState } from 'react';
 import { SafeAreaView, Text, StyleSheet, View } from 'react-native';
-import { Button, Center, FormControl, HStack, Input, Modal, NativeBaseProvider } from 'native-base';
+import { Button, useToast, FormControl, HStack, Input, Modal, NativeBaseProvider } from 'native-base';
 import { Image } from 'react-native';
 import ICON_NAME from '../../utils/icons';
 import CarButton from '../../components/CarButton';
@@ -10,12 +10,14 @@ import { fetchReservationById } from '../../api/reservations';
 import { checkPin } from '../../api/users';
 
 function CarDetailScreen({ route }) {
+  const toast = useToast();
   const [reservation, setReservation] = useState(null);
   const [startReservation, setStartReservation] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const [loading, setLoading] = useState(false);
   const [carOpen, setCarOpen] = useState(true);
   const [pin, setPin] = useState('');
+  const [pinIncorrect, setPinIncorrect] = useState(false);
 
   const { id } = route.params;
 
@@ -36,6 +38,17 @@ function CarDetailScreen({ route }) {
 
   const handleCarOpen = (bool) => {
     setCarOpen(bool);
+    if (bool === true) {
+      toast.show({
+        description: "Auto abierto",
+        placement: "bottom"
+      })
+    } else {
+      toast.show({
+        description: "Auto cerrado",
+        placement: "bottom"
+      })
+    }
   }
 
   const handlePin = async () => {
@@ -45,9 +58,16 @@ function CarDetailScreen({ route }) {
       if (response.pin) {
         setShowModal(false);
         setStartReservation(true);
+        toast.show({
+          description: "Reserva iniciada",
+          placement: "bottom"
+        })
       }
     } catch (error) {
-      console.log(error);
+      toast.show({
+        description: "Error al iniciar reserva",
+        placement: "bottom"
+      })
     }
   }
 
@@ -58,7 +78,7 @@ function CarDetailScreen({ route }) {
   return (
     <>
       <SafeAreaView style={styles.container}>
-        <View style={styles.card}>
+        <View>
           <Image source={{ uri: 'https://mykeego-public-images.s3.amazonaws.com/tenant-123/Car/bKhOPSTLMSWdxGTcykkWWJYwEYrKgUugxUIwxIXL.png' }}
             style={styles.image}
           />
