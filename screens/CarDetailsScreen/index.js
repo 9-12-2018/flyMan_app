@@ -9,7 +9,7 @@ import Loader from '../../components/Loader'
 import { fetchReservationById } from '../../api/reservations';
 import { checkPin } from '../../api/users';
 
-function CarDetailScreen({ route }) {
+function CarDetailScreen({ route, navigation }) {
   const toast = useToast();
   const [reservation, setReservation] = useState(null);
   const [startReservation, setStartReservation] = useState(false);
@@ -71,6 +71,10 @@ function CarDetailScreen({ route }) {
     }
   }
 
+  const handleEndReseration = () => {
+    navigation.navigate('user_report');
+  }
+
   if (loading) {
     return <Loader />;
   }
@@ -90,20 +94,19 @@ function CarDetailScreen({ route }) {
           {
             !startReservation ? (
               <CarButton
-                style={styles.actionButtons}
                 title="Iniciar Reserva"
                 onPress={handleStartReservation}
               />
             ) : (
               <HStack mt="5">
                 <CarButton
-                  style={styles.actionButtons}
+                  propStyle={{ backgroundColor: 'green' }}
                   icon={ICON_NAME.UNLOCK}
                   onPress={() => handleCarOpen(true)}
                   isDisabled={carOpen}
                 />
                 <CarButton
-                  style={styles.actionButtons}
+                  propStyle={{ backgroundColor: 'red' }}
                   icon={ICON_NAME.LOCK}
                   onPress={() => handleCarOpen(false)}
                   isDisabled={!carOpen}
@@ -111,6 +114,9 @@ function CarDetailScreen({ route }) {
               </HStack>
             )
           }
+          {!carOpen && (
+            <Button onPress={handleEndReseration}>Terminar reserva</Button> 
+          )}
         </View>
       </SafeAreaView>
       <Modal isOpen={showModal}>
@@ -132,10 +138,10 @@ function CarDetailScreen({ route }) {
   )
 }
 
-export default ({ route }) => {
+export default ({ route, navigation }) => {
   return (
     <NativeBaseProvider>
-      <CarDetailScreen route={route} />
+      <CarDetailScreen route={route} navigation={navigation} />
     </NativeBaseProvider>
   );
 };
@@ -165,8 +171,4 @@ const styles = StyleSheet.create({
     fontSize: 16,
     marginBottom: 10
   },
-  actionButtons: {
-    width: 25,
-    borderRadius: 50,
-  }
 });
