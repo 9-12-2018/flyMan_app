@@ -6,8 +6,8 @@ import { Image } from 'react-native';
 import ICON_NAME from '../../utils/icons';
 import CarButton from '../../components/CarButton';
 import Loader from '../../components/Loader'
-import { fetchReservationById } from '../../api/reservations';
 import { checkPin } from '../../api/users';
+import { fetchService } from '../../api/services';
 
 function CarDetailScreen({ route, navigation }) {
   const toast = useToast();
@@ -18,17 +18,18 @@ function CarDetailScreen({ route, navigation }) {
   const [carOpen, setCarOpen] = useState(true);
   const [pin, setPin] = useState('');
   const [pinIncorrect, setPinIncorrect] = useState(false);
+  const [service, setService] = useState(null);
 
-  const { id } = route.params;
+  const { id, car } = route.params;
 
   useEffect(async () => {
     setLoading(true);
     try {
-      let response = await fetchReservationById(id);
-      setReservation(response);
+      const service = await fetchService(id);
+      console.log(service);
+      setService(service);
+    } catch (error) { } finally {
       setLoading(false);
-    } catch (error) {
-      // console.log(error);
     }
   }, [])
 
@@ -87,10 +88,11 @@ function CarDetailScreen({ route, navigation }) {
             style={styles.image}
           />
           <Text style={styles.card}>Reservation: {id}</Text>
-          <Text style={styles.card}>Estacionamiento: {reservation?.car?.parkingName}</Text>
-          <Text style={styles.card}>Ubicacion: {reservation?.car?.idParkingSlot}</Text>
-          <Text style={styles.card}>Patente: {reservation?.car?.plate}</Text>
-          <Text style={styles.card}>Nivel de combustible: {reservation?.car?.fuelLevel}</Text>
+          {/* <Text style={styles.card}>Estacionamiento: {reservation?.car?.parkingName}</Text>
+          <Text style={styles.card}>Ubicacion: {reservation?.car?.idParkingSlot}</Text> */}
+          <Text style={styles.card}>Auto: {car.name}</Text>
+          <Text style={styles.card}>Patente: {car.plate}</Text>
+          <Text style={styles.card}>Nivel de combustible: {car.fuelLevel}</Text>
           {
             !startReservation ? (
               <CarButton
@@ -115,7 +117,7 @@ function CarDetailScreen({ route, navigation }) {
             )
           }
           {!carOpen && (
-            <Button onPress={handleEndReseration}>Terminar reserva</Button> 
+            <Button onPress={handleEndReseration}>Terminar reserva</Button>
           )}
         </View>
       </SafeAreaView>
