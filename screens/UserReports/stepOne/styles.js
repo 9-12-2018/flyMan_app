@@ -3,8 +3,8 @@ import { StyleSheet } from 'react-native';
 export default styles = StyleSheet.create({
     container: {
       display: 'flex',
-      flexDirection: 'row',
-      justifyContent: 'center',
+      flexDirection: 'column',
+      alignItems: 'center',
     },
     form: {
       display: 'flex',
