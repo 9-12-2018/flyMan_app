@@ -28,7 +28,7 @@ const VehiclesList = ({ navigation }) => {
   return (
     <Box>
       <FlatList width={window} data={reservations} renderItem={({ item }) =>
-        <TouchableOpacity onPress={() => navigation.navigate('Car Detail', { id: item.id })}>
+        <TouchableOpacity onPress={() => navigation.navigate('car_detail', { id: item.id })}>
           <Box
             _dark={{ borderColor: "muted.50" }}
             pl="1"

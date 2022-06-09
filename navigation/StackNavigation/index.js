@@ -26,8 +26,8 @@ export default function index({ token, login, logout }) {
                                         headerLeft: () => <Button title={"Log out"} onPress={() => logout()} />
                                     }}
                                 />
-                                <Stack.Screen name='Car Detail' component={CarDetailScreen} options={{ headerBackTitle: 'Volver' }} />
-                                <Stack.Screen name='UserReports' component={UserReports} options={{ headerBackTitle: 'Volver' }} />
+                                <Stack.Screen name='car_detail' component={CarDetailScreen} options={{ title: 'Detalle del auto', headerBackTitle: 'Volver' }} />
+                                <Stack.Screen name='user_report' component={UserReports} options={{ title: 'Reporte de Usuarios' }}/>
                             </>
                         )
                         : (

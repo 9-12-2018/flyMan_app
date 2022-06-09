@@ -51,6 +51,7 @@ export default function CarDetailScreen() {
 
   const [step, setStep] = useState(0);
   const [damage, setDamage] = useState(false);
+  const [damageDescription, setDamageDescription] = useState();
   const [tires, setTires] = useState(false);
   const [securityKit, setSecurityKit] = useState(false);
   const [documents, setDocuments] = useState(false);
@@ -60,9 +61,11 @@ export default function CarDetailScreen() {
   const stepOneData = {
     setters: {
       setDamage,
+      setDamageDescription
     },
     values: {
      damage,
+     damageDescription
     }
   }
 
@@ -129,11 +132,10 @@ export default function CarDetailScreen() {
   }
 
   const question = questionnaire[step];
-
+  
   return (
     <SafeAreaView style={styles.container}>
         <View style={styles.card}>
-          <Text style={styles.screen_title}>Reporte de Usuarios</Text>
           <Stepper 
             step={step}
             nextStep={handleStepNext}
