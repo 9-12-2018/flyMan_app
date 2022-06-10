@@ -1,13 +1,13 @@
 
 import React, { useEffect, useState } from 'react';
 import { SafeAreaView, Text, StyleSheet, View } from 'react-native';
-import { Button, useToast, FormControl, HStack, Input, Modal, NativeBaseProvider } from 'native-base';
-import { Image } from 'react-native';
-import ICON_NAME from '../../utils/icons';
-import CarButton from '../../components/CarButton';
+import { Button, useToast, HStack, Modal, NativeBaseProvider } from 'native-base';
 import Loader from '../../components/Loader'
 import { checkPin } from '../../api/users';
 import { fetchService } from '../../api/services';
+import PinModal from './Modals/PinModal';
+import CarInfoCard from '../../components/CarCard/CarInfoCard';
+import CarButtonPanel from '../../components/CarCard/CardButtonPanel';
 
 function CarDetailScreen({ route, navigation }) {
   const toast = useToast();
@@ -71,7 +71,7 @@ function CarDetailScreen({ route, navigation }) {
       })
     }
   }
-
+  
   const handleEndReseration = () => {
     navigation.navigate('user_report');
   }
@@ -84,57 +84,23 @@ function CarDetailScreen({ route, navigation }) {
     <>
       <SafeAreaView style={styles.container}>
         <View>
-          <Image source={{ uri: 'https://mykeego-public-images.s3.amazonaws.com/tenant-123/Car/bKhOPSTLMSWdxGTcykkWWJYwEYrKgUugxUIwxIXL.png' }}
-            style={styles.image}
+          <CarInfoCard id={id} car={car}/>
+          <CarButtonPanel
+            startReservation={startReservation}
+            handleStartReservation={handleStartReservation}
+            handleCarOpen={handleCarOpen}
+            carOpen={carOpen}
+            handleEndReseration={handleEndReseration}
           />
-          <Text style={styles.card}>Reservation: {id}</Text>
-          {/* <Text style={styles.card}>Estacionamiento: {reservation?.car?.parkingName}</Text>
-          <Text style={styles.card}>Ubicacion: {reservation?.car?.idParkingSlot}</Text> */}
-          <Text style={styles.card}>Auto: {car.name}</Text>
-          <Text style={styles.card}>Patente: {car.plate}</Text>
-          <Text style={styles.card}>Nivel de combustible: {car.fuelLevel}</Text>
-          {
-            !startReservation ? (
-              <CarButton
-                title="Iniciar Reserva"
-                onPress={handleStartReservation}
-              />
-            ) : (
-              <HStack mt="5">
-                <CarButton
-                  propStyle={{ backgroundColor: 'green' }}
-                  icon={ICON_NAME.UNLOCK}
-                  onPress={() => handleCarOpen(true)}
-                  isDisabled={carOpen}
-                />
-                <CarButton
-                  propStyle={{ backgroundColor: 'red' }}
-                  icon={ICON_NAME.LOCK}
-                  onPress={() => handleCarOpen(false)}
-                  isDisabled={!carOpen}
-                />
-              </HStack>
-            )
-          }
-          {!carOpen && (
-            <Button onPress={handleEndReseration}>Terminar reserva</Button>
-          )}
         </View>
       </SafeAreaView>
       <Modal isOpen={showModal}>
-        <Modal.Content maxWidth="300">
-          <Modal.Header>Ingrese su PIN</Modal.Header>
-          <Modal.Body>
-            <FormControl>
-              <Input maxLength={4} onChangeText={(e) => setPin(e)} />
-            </FormControl>
-          </Modal.Body>
-          <Modal.Footer>
-            <Button.Group flex={1} justifyContent="center">
-              <Button justifyContent="center" onPress={() => handlePin()} isDisabled={pin.length < 4}>Enviar</Button>
-            </Button.Group>
-          </Modal.Footer>
-        </Modal.Content>
+        <PinModal
+          setPin={setPin} 
+          setShowModal={setShowModal}
+          handlePin={handlePin} 
+          pinLength={pin.length}
+          />
       </Modal>
     </>
   )
@@ -149,28 +115,8 @@ export default ({ route, navigation }) => {
 };
 
 const styles = StyleSheet.create({
-  image: {
-    resizeMode: "contain",
-    width: 150,
-    height: 80,
-    alignSelf: 'center',
-    marginBottom: 12
-  },
   container: {
     flexDirection: 'column',
     justifyContent: 'center',
-  },
-  card: {
-    shadowColor: 'black',
-    shadowOffset: { width: 0, height: 2 },
-    shadowRadius: 6,
-    shadowOpacity: 0.26,
-    elevation: 8,
-    backgroundColor: 'white',
-    padding: 10,
-    borderRadius: 10,
-    textAlign: 'center',
-    fontSize: 16,
-    marginBottom: 10
   },
 });
