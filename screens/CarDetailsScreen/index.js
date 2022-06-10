@@ -8,26 +8,24 @@ import { fetchService } from '../../api/services';
 import PinModal from './Modals/PinModal';
 import CarInfoCard from '../../components/CarCard/CarInfoCard';
 import CarButtonPanel from '../../components/CarCard/CardButtonPanel';
+import { fetchService, createService } from '../../api/services';
 
 function CarDetailScreen({ route, navigation }) {
   const toast = useToast();
-  const [reservation, setReservation] = useState(null);
-  const [startReservation, setStartReservation] = useState(false);
   const [showModal, setShowModal] = useState(false);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [carOpen, setCarOpen] = useState(true);
   const [pin, setPin] = useState('');
-  const [pinIncorrect, setPinIncorrect] = useState(false);
+  // const [pinIncorrect, setPinIncorrect] = useState(false);
   const [service, setService] = useState(null);
 
-  const { id, car } = route.params;
+  const { reservationId, car } = route.params;
 
   useEffect(async () => {
     setLoading(true);
     try {
-      const service = await fetchService(id);
-      console.log(service);
-      setService(service);
+      const service = await fetchService(car.plate, reservationId);
+      setService(service._id);
     } catch (error) { } finally {
       setLoading(false);
     }
@@ -57,8 +55,8 @@ function CarDetailScreen({ route, navigation }) {
     try {
       let response = await checkPin(pin);
       if (response.pin) {
-        setShowModal(false);
-        setStartReservation(true);
+        console.log('hola')
+        startService();
         toast.show({
           description: "Reserva iniciada",
           placement: "bottom"
@@ -69,9 +67,17 @@ function CarDetailScreen({ route, navigation }) {
         description: "Error al iniciar reserva",
         placement: "bottom"
       })
+    } finally {
+      setShowModal(false);
     }
   }
-  
+
+  const startService = async () => {
+    const service = await createService({ plate: car.plate, reservationId });
+    console.log(service.serviceId);
+    setService(service.serviceId);
+  }
+
   const handleEndReseration = () => {
     navigation.navigate('user_report');
   }
