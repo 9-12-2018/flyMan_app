@@ -7,27 +7,24 @@ import ICON_NAME from '../../utils/icons';
 import CarButton from '../../components/CarButton';
 import Loader from '../../components/Loader'
 import { checkPin } from '../../api/users';
-import { fetchService } from '../../api/services';
+import { fetchService, createService } from '../../api/services';
 
 function CarDetailScreen({ route, navigation }) {
   const toast = useToast();
-  const [reservation, setReservation] = useState(null);
-  const [startReservation, setStartReservation] = useState(false);
   const [showModal, setShowModal] = useState(false);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [carOpen, setCarOpen] = useState(true);
   const [pin, setPin] = useState('');
-  const [pinIncorrect, setPinIncorrect] = useState(false);
+  // const [pinIncorrect, setPinIncorrect] = useState(false);
   const [service, setService] = useState(null);
 
-  const { id, car } = route.params;
+  const { reservationId, car } = route.params;
 
   useEffect(async () => {
     setLoading(true);
     try {
-      const service = await fetchService(id);
-      console.log(service);
-      setService(service);
+      const service = await fetchService(car.plate, reservationId);
+      setService(service._id);
     } catch (error) { } finally {
       setLoading(false);
     }
@@ -57,8 +54,8 @@ function CarDetailScreen({ route, navigation }) {
     try {
       let response = await checkPin(pin);
       if (response.pin) {
-        setShowModal(false);
-        setStartReservation(true);
+        console.log('hola')
+        startService();
         toast.show({
           description: "Reserva iniciada",
           placement: "bottom"
@@ -69,7 +66,15 @@ function CarDetailScreen({ route, navigation }) {
         description: "Error al iniciar reserva",
         placement: "bottom"
       })
+    } finally {
+      setShowModal(false);
     }
+  }
+
+  const startService = async () => {
+    const service = await createService({ plate: car.plate, reservationId });
+    console.log(service.serviceId);
+    setService(service.serviceId);
   }
 
   const handleEndReseration = () => {
@@ -87,14 +92,14 @@ function CarDetailScreen({ route, navigation }) {
           <Image source={{ uri: 'https://mykeego-public-images.s3.amazonaws.com/tenant-123/Car/bKhOPSTLMSWdxGTcykkWWJYwEYrKgUugxUIwxIXL.png' }}
             style={styles.image}
           />
-          <Text style={styles.card}>Reservation: {id}</Text>
+          <Text style={styles.card}>Reservation: {reservationId}</Text>
           {/* <Text style={styles.card}>Estacionamiento: {reservation?.car?.parkingName}</Text>
           <Text style={styles.card}>Ubicacion: {reservation?.car?.idParkingSlot}</Text> */}
           <Text style={styles.card}>Auto: {car.name}</Text>
           <Text style={styles.card}>Patente: {car.plate}</Text>
           <Text style={styles.card}>Nivel de combustible: {car.fuelLevel}</Text>
           {
-            !startReservation ? (
+            !service ? (
               <CarButton
                 title="Iniciar Reserva"
                 onPress={handleStartReservation}
