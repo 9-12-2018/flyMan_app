@@ -4,7 +4,6 @@ import { SafeAreaView, Text, StyleSheet, View } from 'react-native';
 import { Button, useToast, HStack, Modal, NativeBaseProvider } from 'native-base';
 import Loader from '../../components/Loader'
 import { checkPin } from '../../api/users';
-import { fetchService } from '../../api/services';
 import PinModal from './Modals/PinModal';
 import CarInfoCard from '../../components/CarCard/CarInfoCard';
 import CarButtonPanel from '../../components/CarCard/CardButtonPanel';
@@ -90,9 +89,9 @@ function CarDetailScreen({ route, navigation }) {
     <>
       <SafeAreaView style={styles.container}>
         <View>
-          <CarInfoCard id={id} car={car}/>
+          <CarInfoCard id={reservationId} car={car} />
           <CarButtonPanel
-            startReservation={startReservation}
+            service={service}
             handleStartReservation={handleStartReservation}
             handleCarOpen={handleCarOpen}
             carOpen={carOpen}
@@ -102,11 +101,11 @@ function CarDetailScreen({ route, navigation }) {
       </SafeAreaView>
       <Modal isOpen={showModal}>
         <PinModal
-          setPin={setPin} 
+          setPin={setPin}
           setShowModal={setShowModal}
-          handlePin={handlePin} 
+          handlePin={handlePin}
           pinLength={pin.length}
-          />
+        />
       </Modal>
     </>
   )
