@@ -2,7 +2,7 @@ import axios from 'axios';
 import { BASE_URL } from '@env';
 import { retrieveToken } from '../services/secureStorage';
 
-const fetchService = async (plate, reservationId) => {
+export const fetchService = async (plate, reservationId) => {
     const url = `${BASE_URL}/services/plate/${plate}/reservation/${reservationId}`;
     try {
         const token = await retrieveToken();
@@ -14,7 +14,7 @@ const fetchService = async (plate, reservationId) => {
     }
 }
 
-const createService = async (service) => {
+export const createService = async (service) => {
     const url = `${BASE_URL}/services`;
     try {
         const token = await retrieveToken();
@@ -26,4 +26,14 @@ const createService = async (service) => {
     }
 }
 
-export { fetchService, createService }
+export const updateService = async ({ id, body }) => {
+    const url = `${BASE_URL}/services/${id}`;
+    try {
+        const token = await retrieveToken();
+        const response = await axios.patch(url, body, { headers: { 'Authorization': `Bearer ${token}` } });
+        return response.data;
+    } catch (error) {
+        console.log(error.message);
+        throw error;
+    }
+}

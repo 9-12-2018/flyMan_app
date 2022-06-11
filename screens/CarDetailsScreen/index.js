@@ -78,7 +78,7 @@ function CarDetailScreen({ route, navigation }) {
   }
 
   const handleEndReseration = () => {
-    navigation.navigate('user_report');
+    navigation.navigate('user_report', { serviceId: service });
   }
 
   if (loading) {
