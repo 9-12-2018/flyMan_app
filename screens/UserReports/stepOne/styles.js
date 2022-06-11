@@ -17,5 +17,15 @@ export default styles = StyleSheet.create({
     marginTop: {
       marginTop: 10,
       alignSelf: 'center'
+    },
+    marginBottom: {
+      marginBottom: 15,
+    },
+    input: {
+      borderBottomWidth: 1,
+      borderColor: 'gray',
+      width: 300,
+      textAlign: 'center',
+      padding: 10
     }
 })
