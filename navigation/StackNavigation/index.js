@@ -27,7 +27,7 @@ export default function index({ token, login, logout }) {
                                     }}
                                 />
                                 <Stack.Screen name='car_detail' component={CarDetailScreen} options={{ title: 'Detalle del auto', headerBackTitle: 'Volver' }} />
-                                <Stack.Screen name='user_report' component={UserReports} options={{ title: 'Reporte de Usuarios' }}/>
+                                <Stack.Screen name='user_report' component={UserReports} options={{ title: 'Reporte de Usuarios', headerBackVisible: false }}/>
                             </>
                         )
                         : (

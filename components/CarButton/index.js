@@ -4,7 +4,6 @@ import { AntDesign } from '@expo/vector-icons';
 import styles from './styles';
 
 export default function CarButton({ title, icon, onPress, isDisabled, propStyle }) {
-  console.log(propStyle)
   return (
     <View style={styles.container}>
         <TouchableOpacity style={[styles.button, isDisabled && propStyle]} onPress={onPress} disabled={isDisabled}>

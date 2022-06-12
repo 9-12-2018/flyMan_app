@@ -5,7 +5,6 @@ import styles from './styles';
 
 export default StepOne = ({ data }) => {
   const { setters, values } = data;
-  console.log(values.damageDescription);
   return (
       <>
       <View style={styles.container}>
@@ -29,12 +28,12 @@ export default StepOne = ({ data }) => {
             />
             </RadioButtonGroup>
         </View>
-        <View>
+        <View style={styles.marginBottom}>
           {values.damage && (
             <TextInput
               multiline={true}
               numberOfLines={4}
-              style={{ borderBottomWidth: 1, borderColor: 'gray', width: 300 }}
+              style={[styles.input, styles.marginTop]}
               placeholder="Describa el daño"
               value={values.damageDescription}
               onChangeText={setters.setDamageDescription}
