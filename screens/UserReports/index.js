@@ -176,7 +176,6 @@ export default function CarDetailScreen({ route, navigation}) {
   }
 
   const handleTerminateService = async () => {
-    console.log(body);
     try{
       await updateService({ id: serviceId, body });
     } catch (e) { 

@@ -54,7 +54,6 @@ function CarDetailScreen({ route, navigation }) {
     try {
       let response = await checkPin(pin);
       if (response.pin) {
-        console.log('hola')
         startService();
         toast.show({
           description: "Reserva iniciada",
@@ -73,7 +72,6 @@ function CarDetailScreen({ route, navigation }) {
 
   const startService = async () => {
     const service = await createService({ plate: car.plate, reservationId });
-    console.log(service.serviceId);
     setService(service.serviceId);
   }
 

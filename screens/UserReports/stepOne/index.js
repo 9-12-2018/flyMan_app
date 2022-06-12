@@ -5,7 +5,6 @@ import styles from './styles';
 
 export default StepOne = ({ data }) => {
   const { setters, values } = data;
-  console.log(values.damageDescription);
   return (
       <>
       <View style={styles.container}>
