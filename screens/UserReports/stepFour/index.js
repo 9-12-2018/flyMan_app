@@ -34,10 +34,9 @@ export default StepFour = ({ data }) => {
           <View style={styles.marginBottom}>
             {values.fuelLoad && (
               <TextInput
-                multiline={true}
-                numberOfLines={4}
                 style={[styles.input, styles.marginTop]}
                 placeholder="Ingrese el monto"
+                keyboardType="numeric"
                 value={values.fuelLoadPrice}
                 onChangeText={setters.setFuelLoadPrice}
               />

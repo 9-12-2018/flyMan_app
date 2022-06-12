@@ -61,7 +61,7 @@ export default function CarDetailScreen({ route, navigation}) {
 
   const [step, setStep] = useState(0);
   const [damage, setDamage] = useState(false);
-  const [damageDescription, setDamageDescription] = useState();
+  const [damageDescription, setDamageDescription] = useState('');
   const [tires, setTires] = useState(false);
   const [securityKit, setSecurityKit] = useState(false);
   const [documents, setDocuments] = useState(false);
@@ -168,16 +168,22 @@ export default function CarDetailScreen({ route, navigation}) {
     securityKit,
     documents,
     cleanliness: parseInt(cleanliness),
-    task: [cleanTask, inflateTireTask, lampFixTask],
+    tasks: [{
+      cleanTask,
+      inflateTireTask,
+      lampFixTask,
+    }],
   }
 
   const handleTerminateService = async () => {
+    console.log(body);
     try{
       await updateService({ id: serviceId, body });
     } catch (e) { 
       console.log('error');
-    } finally {
-      navigation.navigate('Reservas');
+    } 
+    finally {
+      navigation.navigate("Reservas")
     }
   }
 

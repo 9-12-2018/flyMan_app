@@ -8,7 +8,7 @@ export default function PinModal({ setPin, setShowModal, handlePin, pinLength })
       <Modal.Header>Ingrese su PIN</Modal.Header>
       <Modal.Body>
         <FormControl>
-          <Input maxLength={4} onChangeText={(e) => setPin(e)} keyboardType="numeric"/>
+          <Input maxLength={4} onChangeText={(e) => setPin(e)} keyboardType="numeric" />
         </FormControl>
       </Modal.Body>
       <Modal.Footer>
