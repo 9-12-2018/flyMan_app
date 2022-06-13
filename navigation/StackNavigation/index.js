@@ -1,11 +1,12 @@
 import React from 'react';
-import { Button } from 'react-native';
+import { Button, Text } from 'react-native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import CarDetailScreen from '../../screens/CarDetailsScreen';
 import UserReports from '../../screens/UserReports';
 import LogInScreen from '../../screens/LogInScreen';
 import Vehicles from '../../screens/Vehicles';
 import GlobalContext from '../../components/globals/context';
+import CustomButton from '../../components/CustomButton';
 
 const Stack = createNativeStackNavigator();
 
@@ -14,7 +15,13 @@ export default function index({ token, login, logout }) {
 
     return (
         <GlobalContext.Provider value={{ login }}>
-            <Stack.Navigator>
+            <Stack.Navigator
+                screenOptions={{
+                    // headerMode: 'screen',
+                    headerTintColor: 'white',
+                    headerStyle: { backgroundColor: '#000000' },
+                }}
+            >
                 {
                     (isAuthenticated())
                         ? (
@@ -23,11 +30,20 @@ export default function index({ token, login, logout }) {
                                     name='Reservas'
                                     component={Vehicles}
                                     options={{
-                                        headerLeft: () => <Button title={"Log out"} onPress={() => logout()} />
+                                        headerTitleAlign: 'center',
+                                        headerLeft: () => <CustomButton onPress={() => logout()} text="Log out" txtColor="#fff" />
                                     }}
                                 />
-                                <Stack.Screen name='car_detail' component={CarDetailScreen} options={{ title: 'Detalle del auto', headerBackTitle: 'Volver' }} />
-                                <Stack.Screen name='user_report' component={UserReports} options={{ title: 'Reporte de Usuarios' }}/>
+                                <Stack.Screen name='car_detail' component={CarDetailScreen} options={{
+                                    title: 'Detalle del auto',
+                                    headerBackTitle: 'Volver',
+                                    headerTitleAlign: 'center',
+                                }} />
+                                <Stack.Screen name='user_report' component={UserReports} options={{
+                                    title: 'Reporte de Usuarios',
+                                    headerBackVisible: false,
+                                    headerTitleAlign: 'center',
+                                }} />
                             </>
                         )
                         : (
