@@ -15,7 +15,12 @@ const dates = (date) => {
 // Devuelve string -> dd/mm/yyyy - hh:mm:ss
 export const dateToString = (date) => {
   const { day, month, year, hour } = dates(date);
-  return `${day}/${month}/${year} - ${hour}`;
+  return `${day}/${month}/${year}`;
+}
+
+export const hours = (date) => {
+  const { day, month, year, hour } = dates(date);
+  return `${hour}`;
 }
 
 const dateToDate = (date) => {

@@ -34,12 +34,18 @@ export default function index({ token, login, logout }) {
                                         headerLeft: () => <CustomButton onPress={() => logout()} text="Log out" txtColor="#fff" />
                                     }}
                                 />
-                                <Stack.Screen name='car_detail' component={CarDetailScreen} options={{
+                                <Stack.Screen
+                                  name='car_detail'
+                                  component={CarDetailScreen}
+                                  options={{
                                     title: 'Detalle del auto',
                                     headerBackTitle: 'Volver',
                                     headerTitleAlign: 'center',
                                 }} />
-                                <Stack.Screen name='user_report' component={UserReports} options={{
+                                <Stack.Screen
+                                  name='user_report'
+                                  component={UserReports}
+                                  options={{
                                     title: 'Reporte de Usuarios',
                                     headerBackVisible: false,
                                     headerTitleAlign: 'center',
@@ -47,7 +53,12 @@ export default function index({ token, login, logout }) {
                             </>
                         )
                         : (
-                            <Stack.Screen name='Iniciar Sesión' component={LogInScreen} />
+                            <Stack.Screen
+                              name='Iniciar Sesión'
+                              component={LogInScreen}
+                              options={{
+                                headerShown: false
+                            }}/>
                         )
                 }
             </Stack.Navigator>

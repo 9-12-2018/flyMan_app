@@ -1,39 +1,49 @@
 import React from "react";
-import { Box, Avatar, HStack, VStack, Text, Spacer, Divider } from "native-base";
+import { Box, Avatar, HStack, VStack, Text, Spacer, Badge } from "native-base";
 import { TouchableOpacity } from "react-native";
-import { dateToString, getHoursToReservations } from "../../../../utils/date_parser";
+import { dateToString, getHoursToReservations, hours } from "../../../../utils/date_parser";
 
 const ReservationItem = ({ item, navigateToDetails }) => {
     return (
         <TouchableOpacity onPress={() => navigateToDetails.navigate('car_detail', { reservationId: item._id, car: item.car.plate })}>
-            {console.log(item.car.plate)}
             <Box
                 _dark={{ borderColor: "muted.50" }}
                 p="2"
             >
                 <HStack
                     height={150}
-                    alignItems="center"
-                    space={2}
-                    justifyContent="space-between"
                     backgroundColor="#fff"
                     borderRadius="15"
                     p="3">
-                    <Avatar size="100px" source={{ uri: "https://w7.pngwing.com/pngs/544/372/png-transparent-car-ford-c-max-ford-b-max-ford-ka-ford-kuga-compact-car-car-vehicle-thumbnail.png" }} />
                     <VStack>
-                        <Text _dark={{ color: "warmGray.50" }} color="coolGray.800" bold>
-                            {item?.car?.plate}
-                        </Text>
-                        <Text color="coolGray.600" _dark={{ color: "warmGray.200" }}>
-                            {item?.id}
-                        </Text>
+                        <Avatar size="100px" source={{ uri: "https://w7.pngwing.com/pngs/544/372/png-transparent-car-ford-c-max-ford-b-max-ford-ka-ford-kuga-compact-car-car-vehicle-thumbnail.png" }} />
+                        <Box marginTop={2}>
+                            <Badge colorScheme="success" alignSelf="center" variant="outline">
+                                Activo
+                            </Badge>
+                        </Box>
                     </VStack>
                     <Spacer />
-                    <VStack>
+                    <VStack pr={15}>
                         <HStack>
-                            <Text fontSize="xs" marginRight={1} textAlign="right" bold>Inicio:</Text>
-                            <Text fontSize="xs" _dark={{ color: "warmGray.50" }} color="coolGray.800" alignSelf="flex-start">
+                            <Text
+                                _dark={{ color: "warmGray.50" }}
+                                color="coolGray.800"
+                                bold
+                                fontSize={18}
+                                marginBottom={2}
+                            >
+                                {item?.car?.plate}
+                            </Text>
+                        </HStack>
+                        <HStack>
+                            <Text fontSize={10} _dark={{ color: "warmGray.50" }} color="coolGray.800" alignSelf="flex-start">
                                 {dateToString(item.startTime)}
+                            </Text>
+                        </HStack>
+                        <HStack>
+                            <Text fontSize={30} _dark={{ color: "warmGray.50" }} color="coolGray.800" alignSelf="flex-start">
+                                {hours(item.startTime)}
                             </Text>
                         </HStack>
                         <HStack>

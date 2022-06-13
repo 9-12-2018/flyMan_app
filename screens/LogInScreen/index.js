@@ -58,7 +58,7 @@ export default function LogInScreen() {
                   placeholder="Ingrese su contraseña"
                 />
               </FormControl>
-              <Button mt="2" colorScheme="indigo" onPress={userLogin}>
+              <Button mt="2" backgroundColor="#000000" onPress={userLogin}>
                 Iniciar Sesión
               </Button>
             </VStack>
