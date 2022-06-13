@@ -1,20 +1,60 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import React, { useCallback, useEffect, useState } from 'react';
+import { NavigationContainer } from '@react-navigation/native';
+import * as SplashScreen from 'expo-splash-screen';
+import StackNavigation from './navigation/StackNavigation'
+import { saveToken, retrieveToken, removeToken } from './services/secureStorage';
+
 
 export default function App() {
+  const [appIsReady, setAppIsReady] = useState(false);
+  const [token, setToken] = useState('');
+
+  useEffect(() => {
+    prepare();
+  }, []);
+
+  const checkIfUserHasToken = async () => {
+    const token = await retrieveToken();
+    setToken(token);
+  }
+
+  const login = (token) => {
+    if (!token) throw new Error();
+    setToken(token);
+    saveToken(token);
+  }
+
+  const logout = async () => {
+    await removeToken();
+    setToken(null);
+  }
+
+  const prepare = async () => {
+    try {
+      await SplashScreen.preventAutoHideAsync();
+      await checkIfUserHasToken();
+    } catch (error) {
+      console.warn(error);
+    } finally {
+      setAppIsReady(true);
+    }
+  }
+
+  const onLayoutRootView = useCallback(async () => {
+    if (appIsReady) {
+      await SplashScreen.hideAsync();
+    }
+  }, [appIsReady]);
+
+
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    (!appIsReady)
+      ? null
+      : <NavigationContainer
+        onReady={onLayoutRootView}
+      >
+        <StackNavigation token={token} login={login} logout={logout} />
+      </NavigationContainer>
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
