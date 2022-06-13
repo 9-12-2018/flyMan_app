@@ -1,6 +1,6 @@
 import React from "react";
 import { Center, NativeBaseProvider } from "native-base";
-import VehicleList from "../../components/VehicleList";
+import VehiclesList from "./components/VehiclesList";
 
 
 export default ({ navigation }) => {

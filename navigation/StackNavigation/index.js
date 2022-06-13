@@ -6,7 +6,7 @@ import UserReports from '../../screens/UserReports';
 import LogInScreen from '../../screens/LogInScreen';
 import Vehicles from '../../screens/Vehicles';
 import GlobalContext from '../../components/globals/context';
-import CustomButton from '../../components/CustomButton';
+import CustomButton from '../../components/CustomButton'
 
 const Stack = createNativeStackNavigator();
 

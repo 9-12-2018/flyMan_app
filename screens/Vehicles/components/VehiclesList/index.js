@@ -36,7 +36,7 @@ const VehiclesList = ({ navigation }) => {
                 renderItem={
                     ({ item }) => <ReservationItem
                         item={item}
-                        navigateToDetails={(reservationId, car) => navigation.navigate('car_detail', { reservationId, car })}
+                        navigateToDetails={navigation}
                     />
                 }
                 keyExtractor={item => item._id}
