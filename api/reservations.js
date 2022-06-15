@@ -9,8 +9,7 @@ const fetchReservations = async () => {
         const response = await axios.get(url, { headers: { 'Authorization': `Bearer ${token}` } });
         return response.data;
     } catch (error) {
-        console.log(error);
-        throw error;
+        throw new Error(error.response.data.error);
     }
 }
 
@@ -20,7 +19,7 @@ const fetchReservationById = async (id) => {
         const response = await axios.get(url);
         return response.data;
     } catch (error) {
-        throw error;
+        throw new Error(error.response.data.error);
     }
 }
 
