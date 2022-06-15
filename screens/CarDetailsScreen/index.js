@@ -99,7 +99,7 @@ function CarDetailScreen({ route, navigation }) {
 
   const startService = async () => {
     try {
-      const service = await createService({ plate: car.plate, reservationId });
+      const service = await createService({ plate: car.plate, reservationId, carImage: car.carImage });
       setService(service.serviceId);
     } catch (error) {
       openAlert(error.message);
