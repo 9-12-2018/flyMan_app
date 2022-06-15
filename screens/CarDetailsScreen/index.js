@@ -71,7 +71,7 @@ function CarDetailScreen({ route, navigation }) {
   }
 
   const startService = async () => {
-    const service = await createService({ plate: car.plate, reservationId });
+    const service = await createService({ plate: car.plate, reservationId, carImage: car.carImage });
     setService(service.serviceId);
   }
 
