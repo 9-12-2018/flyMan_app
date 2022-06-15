@@ -1,13 +1,14 @@
 
 import React, { useEffect, useState } from 'react';
-import { SafeAreaView, Text, StyleSheet, View } from 'react-native';
+import { SafeAreaView, Text, StyleSheet, View, Alert } from 'react-native';
 import { Button, useToast, HStack, Modal, NativeBaseProvider } from 'native-base';
 import Loader from '../../components/Loader'
 import { checkPin } from '../../api/users';
+import { fetchService, createService } from '../../api/services';
+import { openCar, closeCar } from '../../api/cars'
 import PinModal from './Modals/PinModal';
 import CarInfoCard from '../../components/CarCard/CarInfoCard';
 import CarButtonPanel from '../../components/CarCard/CardButtonPanel';
-import { fetchService, createService } from '../../api/services';
 
 function CarDetailScreen({ route, navigation }) {
   const toast = useToast();
@@ -25,7 +26,9 @@ function CarDetailScreen({ route, navigation }) {
     try {
       const service = await fetchService(car.plate, reservationId);
       setService(service._id);
-    } catch (error) { } finally {
+    } catch (error) {
+      openAlert(error.message);
+    } finally {
       setLoading(false);
     }
   }, [])
@@ -34,16 +37,39 @@ function CarDetailScreen({ route, navigation }) {
     setShowModal(true);
   }
 
-  const handleCarOpen = (bool) => {
-    setCarOpen(bool);
-    if (bool === true) {
+  const handleCarOpen = async () => {
+    try {
+      const response = await openCar();
+      if (response){
+        setCarOpen(true);
+        toast.show({
+          description: "Auto abierto",
+          placement: "bottom"
+        })
+      } 
+    } catch (error) {
+      setCarOpen(false);
       toast.show({
-        description: "Auto abierto",
+        description: "Error al abrir el auto.",
         placement: "bottom"
       })
-    } else {
+    }
+  }
+
+  const handleCarClose = async () => {
+    try {
+      const response = await closeCar();
+      if (response){
+        setCarOpen(false);
+        toast.show({
+          description: "Auto cerrado",
+          placement: "bottom"
+        })
+      } 
+    } catch (error) {
+      setCarOpen(true);
       toast.show({
-        description: "Auto cerrado",
+        description: "Error al cerrar el auto.",
         placement: "bottom"
       })
     }
@@ -62,6 +88,7 @@ function CarDetailScreen({ route, navigation }) {
       }
     } catch (error) {
       toast.show({
+        // description: `${error.message}`,
         description: "Error al iniciar reserva",
         placement: "bottom"
       })
@@ -71,8 +98,12 @@ function CarDetailScreen({ route, navigation }) {
   }
 
   const startService = async () => {
-    const service = await createService({ plate: car.plate, reservationId, carImage: car.carImage });
-    setService(service.serviceId);
+    try {
+      const service = await createService({ plate: car.plate, reservationId, carImage: car.carImage });
+      setService(service.serviceId);
+    } catch (error) {
+      openAlert(error.message);
+    }
   }
 
   const handleEndReseration = () => {
@@ -92,6 +123,7 @@ function CarDetailScreen({ route, navigation }) {
             service={service}
             handleStartReservation={handleStartReservation}
             handleCarOpen={handleCarOpen}
+            handleCarClose={handleCarClose}
             carOpen={carOpen}
             handleEndReseration={handleEndReseration}
           />
@@ -116,6 +148,10 @@ export default ({ route, navigation }) => {
     </NativeBaseProvider>
   );
 };
+
+const openAlert = (error) => {
+  Alert.alert('Error', error, [{ text: 'OK', style: 'cancel' }]);
+}
 
 const styles = StyleSheet.create({
   container: {

@@ -11,7 +11,7 @@ const login = async (email, password) => {
         );
         return response.data;
     } catch (error) {
-        throw error;
+        throw new Error(error.response.data.error);
     }
 }
 const checkPin = async (pin) => {
@@ -24,7 +24,7 @@ const checkPin = async (pin) => {
             { headers: { 'Authorization': `Bearer ${token}` } });
         return response.data;
     } catch (error) {
-        throw error;
+        throw new Error(error.response.data.error);
     }
 }
 

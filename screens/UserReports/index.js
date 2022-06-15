@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { SafeAreaView, Text, View, Button, } from 'react-native';
+import { SafeAreaView, Text, View, Button, Alert } from 'react-native';
 import { Image } from 'react-native';
 import { updateService } from '../../api/services';
 import StepOne from './stepOne';
@@ -178,8 +178,8 @@ export default function CarDetailScreen({ route, navigation}) {
   const handleTerminateService = async () => {
     try{
       await updateService({ id: serviceId, body });
-    } catch (e) { 
-      console.log('error');
+    } catch (error) { 
+      openAlert(error.message);
     } 
     finally {
       navigation.navigate("Reservas")
@@ -205,10 +205,6 @@ export default function CarDetailScreen({ route, navigation}) {
   )
 }
 
-
-
-
-
-
-
-
+const openAlert = (error) => {
+  Alert.alert('Error', error, [{ text: 'OK', style: 'cancel' }]);
+}
