@@ -27,7 +27,7 @@ function CarDetailScreen({ route, navigation }) {
       const service = await fetchService(car.plate, reservationId);
       setService(service._id);
     } catch (error) {
-      openAlert(error.message);
+      // openAlert(error.message);
     } finally {
       setLoading(false);
     }
@@ -40,13 +40,13 @@ function CarDetailScreen({ route, navigation }) {
   const handleCarOpen = async () => {
     try {
       const response = await openCar();
-      if (response){
+      if (response) {
         setCarOpen(true);
         toast.show({
           description: "Auto abierto",
           placement: "bottom"
         })
-      } 
+      }
     } catch (error) {
       setCarOpen(false);
       toast.show({
@@ -59,13 +59,13 @@ function CarDetailScreen({ route, navigation }) {
   const handleCarClose = async () => {
     try {
       const response = await closeCar();
-      if (response){
+      if (response) {
         setCarOpen(false);
         toast.show({
           description: "Auto cerrado",
           placement: "bottom"
         })
-      } 
+      }
     } catch (error) {
       setCarOpen(true);
       toast.show({
@@ -99,7 +99,7 @@ function CarDetailScreen({ route, navigation }) {
 
   const startService = async () => {
     try {
-      const service = await createService({ plate: car.plate, reservationId, carImage: car.carImage });
+      const service = await createService({ plate: car.plate, reservationId, carImage: car.image });
       setService(service.serviceId);
     } catch (error) {
       openAlert(error.message);
