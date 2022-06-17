@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { Box, FlatList, HStack, Text } from "native-base";
-import { Dimensions, RefreshControl } from "react-native";
+import { Dimensions, RefreshControl, Alert } from "react-native";
 import { fetchReservations } from "../../../../api/reservations";
 import Loader from '../../../../components/Loader';
 import ReservationItem from "../ReservationItem";
 import { useIsFocused } from "@react-navigation/native";
+import { EmptyList } from "../EmptyList";
 
-const VehiclesList = ({ route, navigation }) => {
+const VehiclesList = ({ navigation }) => {
   const isFocused = useIsFocused();
   const [reservations, setReservations] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -21,7 +22,9 @@ const VehiclesList = ({ route, navigation }) => {
     try {
       let response = await fetchReservations();
       setReservations(response);
-    } catch (error) { } finally { setLoading(false) }
+    } catch (error) {
+      openAlert(error.message);
+    } finally { setLoading(false) }
   }
 
   if (loading) {
@@ -55,11 +58,11 @@ const VehiclesList = ({ route, navigation }) => {
     <Box>
       <FlatList
         width={window}
-        data={reservations?.length > 0 ? reservations : []}
+        data={reservations}
         renderItem={
           ({ item }) => <ReservationItem
             item={item}
-            navigateToDetails={navigation}
+            navigateToDetails={(reservationId, car) => navigation.navigate('car_detail', { reservationId, car })}
           />
         }
         keyExtractor={item => item._id}
@@ -69,9 +72,14 @@ const VehiclesList = ({ route, navigation }) => {
             onRefresh={fetchingReservations}
           />
         }
+        ListEmptyComponent={EmptyList}
       />
     </Box>
   )
 };
+
+const openAlert = (error) => {
+  Alert.alert('Error', error, [{ text: 'OK', style: 'cancel' }]);
+}
 
 export default VehiclesList;

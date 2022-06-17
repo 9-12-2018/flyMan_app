@@ -1,25 +1,26 @@
 import React, { useState, useContext } from 'react'
-import { Box, Heading, VStack, FormControl, Input, Button, Center, NativeBaseProvider } from "native-base";
+import { useToast, Box, Heading, VStack, FormControl, Input, Button, Center, NativeBaseProvider } from "native-base";
 import { Dimensions, Alert } from 'react-native'
 import GlobalContext from '../../components/globals/context'
 import { login as apiLogin } from '../../api/users'
 
 export default function LogInScreen() {
+  
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
   const { login } = useContext(GlobalContext);
 
+  const toast = useToast();
   const userLogin = async () => {
     if (!email || !password) return;
     try {
       let response = await apiLogin(email, password);
       if (response.token) login(response.token);
     } catch (error) {
-      openAlert();
+      openAlert(error.message);
     }
   }
-
   const windowW = Dimensions.get("screen").width;
 
   return (
@@ -69,4 +70,6 @@ export default function LogInScreen() {
   );
 }
 
-const openAlert = () => Alert.alert('Ups!', 'Ocurrio un error al hacer login.', [{ text: 'OK', style: 'cancel' }]);
+const openAlert = (error) => {
+  Alert.alert('Error', error, [{ text: 'OK', style: 'cancel' }]);
+}

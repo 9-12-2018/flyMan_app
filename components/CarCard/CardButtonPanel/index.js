@@ -7,6 +7,7 @@ export default function CarButtonPanel({
   service,
   handleStartReservation,
   handleCarOpen,
+  handleCarClose,
   carOpen,
   handleEndReseration,
 }) {
@@ -15,13 +16,13 @@ export default function CarButtonPanel({
     {
       style: { backgroundColor: 'green' },
       icon: 'UNLOCK',
-      onPress: () => handleCarOpen(true),
+      onPress: () => handleCarOpen(),
       disabled: carOpen,
     },
     {
       style: { backgroundColor: 'red' },
       icon: 'LOCK',
-      onPress: () => handleCarOpen(false),
+      onPress: () => handleCarClose(),
       disabled: !carOpen,
     }
   ]
