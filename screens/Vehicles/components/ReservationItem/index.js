@@ -4,8 +4,18 @@ import { TouchableOpacity } from "react-native";
 import { dateToString, getHoursToReservations, hours } from "../../../../utils/date_parser";
 
 const ReservationItem = ({ item, navigateToDetails }) => {
+
+    if (item.length === 0) {
+        console.log('no hay reservas');
+      return (
+        <Box>
+          <Text>No hay reservas asignadas</Text>
+        </Box>
+      );
+    };
+
     return (
-        <TouchableOpacity onPress={() => navigateToDetails.navigate('car_detail', { reservationId: item._id, car: item.car.plate })}>
+        <TouchableOpacity onPress={() => navigateToDetails.navigate('car_detail', { reservationId: item._id, car: item.car })}>
             <Box
                 _dark={{ borderColor: "muted.50" }}
                 p="2"
@@ -18,9 +28,13 @@ const ReservationItem = ({ item, navigateToDetails }) => {
                     <VStack>
                         <Avatar size="100px" source={{ uri: "https://w7.pngwing.com/pngs/544/372/png-transparent-car-ford-c-max-ford-b-max-ford-ka-ford-kuga-compact-car-car-vehicle-thumbnail.png" }} />
                         <Box marginTop={2}>
-                            <Badge colorScheme="success" alignSelf="center" variant="outline">
-                                Activo
-                            </Badge>
+                            {
+                                item.status === 'ACTIVE' && (
+                                    <Badge colorScheme="success" alignSelf="center" variant="outline">
+                                        Activo
+                                    </Badge>
+                                )
+                            }
                         </Box>
                     </VStack>
                     <Spacer />

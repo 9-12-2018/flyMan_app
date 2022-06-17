@@ -182,7 +182,7 @@ export default function CarDetailScreen({ route, navigation}) {
       console.log('error');
     } 
     finally {
-      navigation.navigate("Reservas")
+      navigation.navigate("Reservas");
     }
   }
 

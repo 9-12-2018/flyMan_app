@@ -37,8 +37,9 @@ export default function CarButtonPanel({
     return (
       <>
         <HStack mt="5">
-          {car_buttons.map(cb => (
+          {car_buttons.map((cb, index) => (
             <CarButton
+              key={index}
               propStyle={cb.style}
               icon={ICON_NAME[cb.icon]}
               onPress={cb.onPress}

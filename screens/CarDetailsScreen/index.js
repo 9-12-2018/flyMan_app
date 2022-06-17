@@ -49,6 +49,8 @@ function CarDetailScreen({ route, navigation }) {
     }
   }
 
+   const error2 = "Error";
+
   const handlePin = async () => {
     if (!pin) return;
     try {
@@ -62,7 +64,7 @@ function CarDetailScreen({ route, navigation }) {
       }
     } catch (error) {
       toast.show({
-        description: "Error al iniciar reserva",
+        description: `${error2}`,
         placement: "bottom"
       })
     } finally {
@@ -71,6 +73,8 @@ function CarDetailScreen({ route, navigation }) {
   }
 
   const startService = async () => {
+    console.log('plate', car.plate);
+    console.log('reservationId', reservationId);
     const service = await createService({ plate: car.plate, reservationId });
     setService(service.serviceId);
   }

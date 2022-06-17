@@ -27,7 +27,7 @@ export default function index({ token, login, logout }) {
                         ? (
                             <>
                                 <Stack.Screen
-                                    name='Reservas'
+                                    name='Reservas del día'
                                     component={Vehicles}
                                     options={{
                                         headerTitleAlign: 'center',
