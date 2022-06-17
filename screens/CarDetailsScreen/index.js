@@ -39,7 +39,7 @@ function CarDetailScreen({ route, navigation }) {
 
   const handleCarOpen = async () => {
     try {
-      const response = await openCar();
+      const response = await openCar(car.plate);
       if (response) {
         setCarOpen(true);
         toast.show({
@@ -58,7 +58,7 @@ function CarDetailScreen({ route, navigation }) {
 
   const handleCarClose = async () => {
     try {
-      const response = await closeCar();
+      const response = await closeCar(car.plate);
       if (response) {
         setCarOpen(false);
         toast.show({

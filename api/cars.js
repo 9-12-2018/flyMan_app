@@ -2,8 +2,8 @@ import axios from 'axios';
 import { retrieveToken } from '../services/secureStorage';
 import { BASE_URL } from '@env'
 
-const openCar = async () => {
-    const url = `${BASE_URL}/cars/open`
+const openCar = async (plate) => {
+    const url = `${BASE_URL}/cars/open/${plate}`
     try {
         const token = await retrieveToken();
         const response = await axios.post(url, { headers: { 'Authorization': `Bearer ${token}` } });
@@ -13,8 +13,8 @@ const openCar = async () => {
     }
 }
 
-const closeCar = async () => {
-    const url = `${BASE_URL}/cars/close`
+const closeCar = async (plate) => {
+    const url = `${BASE_URL}/cars/close/${plate}`
     try {
         const token = await retrieveToken();
         const response = await axios.post(url, { headers: { 'Authorization': `Bearer ${token}` } });
