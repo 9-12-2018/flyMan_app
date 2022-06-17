@@ -13,17 +13,6 @@ const fetchReservations = async () => {
     }
 }
 
-const fetchReservationById = async (id) => {
-    const url = `${BASE_URL}/reservations/${id}`;
-    try {
-        const response = await axios.get(url);
-        return response.data;
-    } catch (error) {
-        throw new Error(error.response.data.error);
-    }
-}
-
 export {
-    fetchReservations,
-    fetchReservationById,
+    fetchReservations
 }
