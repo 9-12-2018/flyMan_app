@@ -5,6 +5,7 @@ import { fetchReservations } from "../../../../api/reservations";
 import Loader from '../../../../components/Loader';
 import ReservationItem from "../ReservationItem";
 import { useIsFocused } from "@react-navigation/native";
+import { EmptyList } from "../EmptyList";
 
 const VehiclesList = ({ navigation }) => {
   const isFocused = useIsFocused();
@@ -48,6 +49,7 @@ const VehiclesList = ({ navigation }) => {
             onRefresh={fetchingReservations}
           />
         }
+        ListEmptyComponent={EmptyList}
       />
     </Box>
   )
