@@ -1,17 +1,16 @@
 import React, { useState, useContext } from 'react'
-import { useToast, Box, Heading, VStack, FormControl, Input, Button, Center, NativeBaseProvider } from "native-base";
+import { Box, Heading, VStack, FormControl, Input, Button, Center, NativeBaseProvider } from "native-base";
 import { Dimensions, Alert } from 'react-native'
 import GlobalContext from '../../components/globals/context'
 import { login as apiLogin } from '../../api/users'
 
 export default function LogInScreen() {
-  
+
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
   const { login } = useContext(GlobalContext);
 
-  const toast = useToast();
   const userLogin = async () => {
     if (!email || !password) return;
     try {
