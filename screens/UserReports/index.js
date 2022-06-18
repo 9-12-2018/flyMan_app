@@ -23,10 +23,19 @@ const Stepper = ({
       <Text style={styles.question_title}>{question}</Text>
       <ChooseStep index={step} stepsData={stepsData} />
       <View style={styles.question_buttons}>
-        {step !== 0 && <Button title="Atras" onPress={prevStep} />}
+        {step !== 0 && <Button
+          title="Atras"
+          color="#000000"
+          onPress={prevStep} />}
         {step !== questionnaireLength
-          ? <Button title="Siguiente" onPress={nextStep} />
-          : <Button title="Finalizar servicio" onPress={terminateService} />
+          ? <Button
+            title="Siguiente"
+            color="#000000"
+            onPress={nextStep} />
+            : <Button
+            title="Finalizar servicio"
+            color="#000000"
+            onPress={terminateService} />
         }
       </View>
     </>
@@ -57,7 +66,7 @@ const ChooseStep = ({ index, stepsData }) => {
   return null;
 }
 
-export default function CarDetailScreen({ route, navigation}) {
+export default function CarDetailScreen({ route, navigation }) {
 
   const [step, setStep] = useState(0);
   const [damage, setDamage] = useState(false);
@@ -176,11 +185,11 @@ export default function CarDetailScreen({ route, navigation}) {
   }
 
   const handleTerminateService = async () => {
-    try{
+    try {
       await updateService({ id: serviceId, body });
-    } catch (error) { 
+    } catch (error) {
       openAlert(error.message);
-    } 
+    }
     finally {
       navigation.navigate("Reservas");
     }
