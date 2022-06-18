@@ -27,10 +27,9 @@ export default function CarInfoCard({ id, car }) {
 const styles = StyleSheet.create({
   image: {
     resizeMode: "contain",
-    width: 150,
-    height: 150,
+    width: 110,
+    height: 110,
     alignSelf: 'center',
-    marginBottom: 5,
   },
   card: {
     shadowColor: 'black',
@@ -39,7 +38,7 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.26,
     elevation: 8,
     backgroundColor: 'white',
-    padding: 10,
+    padding: 8,
     borderRadius: 10,
     textAlign: 'center',
     fontSize: 16,
