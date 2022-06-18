@@ -1,7 +1,7 @@
 
 import React, { useEffect, useState } from 'react';
-import { SafeAreaView, Text, StyleSheet, View, Alert } from 'react-native';
-import { Button, useToast, HStack, Modal, NativeBaseProvider } from 'native-base';
+import { SafeAreaView, StyleSheet, View, Alert } from 'react-native';
+import { useToast, Modal, NativeBaseProvider } from 'native-base';
 import Loader from '../../components/Loader'
 import { checkPin } from '../../api/users';
 import { fetchService, createService } from '../../api/services';
@@ -16,7 +16,6 @@ function CarDetailScreen({ route, navigation }) {
   const [loading, setLoading] = useState(true);
   const [carOpen, setCarOpen] = useState(true);
   const [pin, setPin] = useState('');
-  // const [pinIncorrect, setPinIncorrect] = useState(false);
   const [service, setService] = useState(null);
 
   const { reservationId, car } = route.params;
@@ -27,7 +26,6 @@ function CarDetailScreen({ route, navigation }) {
       const service = await fetchService(car.plate, reservationId);
       setService(service._id);
     } catch (error) {
-      // openAlert(error.message);
     } finally {
       setLoading(false);
     }
@@ -89,7 +87,6 @@ function CarDetailScreen({ route, navigation }) {
       }
     } catch (error) {
       toast.show({
-        // description: `${error.message}`,
         description: "Error al iniciar reserva",
         placement: "bottom"
       })
