@@ -27,9 +27,10 @@ export default function index({ token, login, logout }) {
                         ? (
                             <>
                                 <Stack.Screen
-                                    name='Reservas del día'
+                                    name='reservations'
                                     component={Vehicles}
                                     options={{
+                                        title: 'Detalle del auto',
                                         headerTitleAlign: 'center',
                                         headerLeft: () => <CustomButton onPress={() => logout()} text="Log out" txtColor="#fff" />
                                     }}

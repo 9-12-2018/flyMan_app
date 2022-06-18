@@ -1,10 +1,12 @@
 import React from 'react'
-import { Box, Text } from "native-base";
+import { Box, Text, HStack } from "native-base";
+import { Dimensions } from "react-native";
 
 export const EmptyList = () => {
+    const window = Dimensions.get("screen").width;
     return (
-        <Box flex={1} justifyContent="center" alignItems="center">
-            <Text>En este momento no hay reservas.</Text>
-        </Box>
-    )
-}
+      <HStack justifyContent="center" marginTop={window/2} height="100%">
+        <Text fontSize={18}>No hay reservas asignadas</Text>
+      </HStack>
+    );
+  }

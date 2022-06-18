@@ -31,29 +31,6 @@ const VehiclesList = ({ navigation }) => {
     return <Loader />;
   }
 
-  const NoReservations = () => {
-    return (
-      <HStack justifyContent="center" marginTop={window/2}>
-        <Text fontSize={18}>No hay reservas asignadas</Text>
-      </HStack>
-    );
-  }
-
-  if (reservations.length === 0) {
-    return <FlatList
-      width={window}
-      data={[{}]}
-      renderItem={({ item }) => <NoReservations />}
-      refreshControl={
-        <RefreshControl
-          refreshing={loading}
-          onRefresh={fetchingReservations}
-        />}
-     />
-    }
-
-  console.log(reservations);
-
   return (
     <Box>
       <FlatList
@@ -62,7 +39,7 @@ const VehiclesList = ({ navigation }) => {
         renderItem={
           ({ item }) => <ReservationItem
             item={item}
-            navigateToDetails={(reservationId, car) => navigation.navigate('car_detail', { reservationId, car })}
+            navigateToDetails={navigation}
           />
         }
         keyExtractor={item => item._id}

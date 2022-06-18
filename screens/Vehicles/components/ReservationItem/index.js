@@ -5,15 +5,6 @@ import { dateToString, getHoursToReservations, hours } from "../../../../utils/d
 
 const ReservationItem = ({ item, navigateToDetails }) => {
 
-    if (item.length === 0) {
-        console.log('no hay reservas');
-      return (
-        <Box>
-          <Text>No hay reservas asignadas</Text>
-        </Box>
-      );
-    };
-
     return (
         <TouchableOpacity onPress={() => navigateToDetails.navigate('car_detail', { reservationId: item._id, car: item.car })}>
             <Box
