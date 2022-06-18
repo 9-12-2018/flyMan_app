@@ -23,10 +23,19 @@ const Stepper = ({
       <Text style={styles.question_title}>{question}</Text>
       <ChooseStep index={step} stepsData={stepsData} />
       <View style={styles.question_buttons}>
-        {step !== 0 && <Button title="Atras" onPress={prevStep} />}
+        {step !== 0 && <Button
+          title="Atras"
+          color="#000000"
+          onPress={prevStep} />}
         {step !== questionnaireLength
-          ? <Button title="Siguiente" onPress={nextStep} />
-          : <Button title="Finalizar servicio" onPress={terminateService} />
+          ? <Button
+            title="Siguiente"
+            color="#000000"
+            onPress={nextStep} />
+            : <Button
+            title="Finalizar servicio"
+            color="#000000"
+            onPress={terminateService} />
         }
       </View>
     </>
@@ -57,7 +66,7 @@ const ChooseStep = ({ index, stepsData }) => {
   return null;
 }
 
-export default function CarDetailScreen({ route, navigation}) {
+export default function CarDetailScreen({ route, navigation }) {
 
   const [step, setStep] = useState(0);
   const [damage, setDamage] = useState(false);
@@ -140,10 +149,10 @@ export default function CarDetailScreen({ route, navigation}) {
   }
 
   const questionnaire = [
-    "¿Hay algún daño exterior?",
-    "¿Se encuentran los siguientes elementos?",
-    "¿Cómo calificarías la limpieza del vehículo?",
-    "¿Se le cargó combustible?",
+    "¿Hay algún daño nuevo en el vehículo?",
+    "¿Se encuentran los siguientes elementos en el vehículo?",
+    "¿Cómo calificarías la limpieza del vehículo previo al servicio?",
+    "¿Se le cargó combustible al vehículo?",
     "¿Cúales fueron los servicios realizados?",
   ]
 
@@ -176,13 +185,13 @@ export default function CarDetailScreen({ route, navigation}) {
   }
 
   const handleTerminateService = async () => {
-    try{
+    try {
       await updateService({ id: serviceId, body });
-    } catch (error) { 
+    } catch (error) {
       openAlert(error.message);
-    } 
+    }
     finally {
-      navigation.navigate("Reservas")
+      navigation.navigate("reservations");
     }
   }
 

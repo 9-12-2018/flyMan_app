@@ -38,8 +38,9 @@ export default function CarButtonPanel({
     return (
       <>
         <HStack mt="5">
-          {car_buttons.map(cb => (
+          {car_buttons.map((cb, index) => (
             <CarButton
+              key={index}
               propStyle={cb.style}
               icon={ICON_NAME[cb.icon]}
               onPress={cb.onPress}
@@ -47,7 +48,14 @@ export default function CarButtonPanel({
             />
           ))}
         </HStack>
-        {!carOpen && <Button onPress={handleEndReseration}>Terminar reserva</Button>}
+        {!carOpen &&
+          <Button
+            onPress={handleEndReseration}
+            backgroundColor="#000000"
+            marginTop={5}
+            >
+              Terminar reserva
+        </Button>}
       </>
     )
   }

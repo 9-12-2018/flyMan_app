@@ -75,6 +75,7 @@ function CarDetailScreen({ route, navigation }) {
     }
   }
 
+
   const handlePin = async () => {
     if (!pin) return;
     try {
