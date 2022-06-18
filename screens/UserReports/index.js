@@ -191,7 +191,7 @@ export default function CarDetailScreen({ route, navigation }) {
       openAlert(error.message);
     }
     finally {
-      navigation.navigate("Reservas");
+      navigation.navigate("reservations");
     }
   }
 
