@@ -149,10 +149,10 @@ export default function CarDetailScreen({ route, navigation }) {
   }
 
   const questionnaire = [
-    "¿Hay algún daño exterior?",
-    "¿Se encuentran los siguientes elementos?",
-    "¿Cómo calificarías la limpieza del vehículo?",
-    "¿Se le cargó combustible?",
+    "¿Hay algún daño nuevo en el vehículo?",
+    "¿Se encuentran los siguientes elementos en el vehículo?",
+    "¿Cómo calificarías la limpieza del vehículo previo al servicio?",
+    "¿Se le cargó combustible al vehículo?",
     "¿Cúales fueron los servicios realizados?",
   ]
 
