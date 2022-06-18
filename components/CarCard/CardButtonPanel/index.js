@@ -48,7 +48,14 @@ export default function CarButtonPanel({
             />
           ))}
         </HStack>
-        {!carOpen && <Button onPress={handleEndReseration}>Terminar reserva</Button>}
+        {!carOpen &&
+          <Button
+            onPress={handleEndReseration}
+            backgroundColor="#000000"
+            marginTop={5}
+            >
+              Terminar reserva
+        </Button>}
       </>
     )
   }
