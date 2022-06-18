@@ -6,7 +6,7 @@ const openCar = async (plate) => {
     const url = `${BASE_URL}/cars/open/${plate}`
     try {
         const token = await retrieveToken();
-        const response = await axios.post(url, { headers: { 'Authorization': `Bearer ${token}` } });
+        const response = await axios.post(url, null, { headers: { 'Authorization': `Bearer ${token}` } });
         return response.data;
     } catch (error) {
         throw new Error(error.response.data.error);
@@ -17,7 +17,7 @@ const closeCar = async (plate) => {
     const url = `${BASE_URL}/cars/close/${plate}`
     try {
         const token = await retrieveToken();
-        const response = await axios.post(url, { headers: { 'Authorization': `Bearer ${token}` } });
+        const response = await axios.post(url, null, { headers: { 'Authorization': `Bearer ${token}` } });
         return response.data;
     } catch (error) {
         throw new Error(error.response.data.error);
