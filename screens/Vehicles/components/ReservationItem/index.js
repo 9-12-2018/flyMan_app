@@ -4,13 +4,13 @@ import { TouchableOpacity } from "react-native";
 import { getTimeDifference, hours } from "../../../../utils/date_parser";
 
 const ReservationItem = ({ item, navigateToDetails }) => {
-    const { hours: hoursToReservation, minutes: minutesToReservation } = getTimeDifference(item.startTime);
+    const { hour: hoursToReservation, minutes: minutesToReservation } = getTimeDifference(item.startTime);
     return (
         <TouchableOpacity onPress={() => navigateToDetails.navigate('car_detail', { reservationId: item._id, car: item.car })}>
             <Box
                 _dark={{ borderColor: "muted.50" }}
                 p="2"
-                height={200}
+                maxHeight={200}
             >
                 <HStack
                     backgroundColor="#fff"
@@ -54,7 +54,11 @@ const ReservationItem = ({ item, navigateToDetails }) => {
                         <VStack marginTop={1} alignItems="center">
                             <Text fontSize="xs" marginRight={0} textAlign="right" bold alignSelf="flex-start">Reserva en</Text>
                             <HStack>
-                                {hoursToReservation !== 0 && minutesToReservation !== 0 ? (
+                                {hoursToReservation === 0 && minutesToReservation === 0 ? (
+                                    <Text fontSize="md" _dark={{ color: "warmGray.50" }} color="coolGray.800" alignSelf="flex-start" marginRight={3}>
+                                        Este momento
+                                    </Text>
+                                ) : (
                                     <>
                                         <Text fontSize="md" _dark={{ color: "warmGray.50" }} color="coolGray.800" alignSelf="flex-start">
                                             {`${hoursToReservation} ${hoursToReservation === 1 ? 'hora' : 'horas'}`}
@@ -63,10 +67,6 @@ const ReservationItem = ({ item, navigateToDetails }) => {
                                             {`${minutesToReservation} ${minutesToReservation === 1 ? 'minuto' : 'minutos'}`}
                                         </Text>
                                     </>
-                                ) : (
-                                    <Text fontSize="md" _dark={{ color: "warmGray.50" }} color="coolGray.800" alignSelf="flex-start" marginRight={3}>
-                                        Este momento
-                                    </Text>
                                 )
                                 }
                             </HStack>

@@ -32,7 +32,7 @@ export default function index({ token, login, logout }) {
                                     options={{
                                         title: 'Reservas del día',
                                         headerTitleAlign: 'center',
-                                        headerLeft: () => <CustomButton onPress={() => logout()} text="Cerras sesión" txtColor="#fff" />
+                                        headerLeft: () => <CustomButton onPress={() => logout()} text="Salir" txtColor="#fff" />
                                     }}
                                 />
                                 <Stack.Screen

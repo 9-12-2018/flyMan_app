@@ -1,15 +1,16 @@
 import moment from 'moment';
 
 const dates = (date) => {
-  const hour = date.substring(11,19);
-  const day = date.substring(8,10);
-  const month = date.substring(5,7);
-  const year = date.substring(0,4);
+  const hour = date.substring(11, 19);
+  const day = date.substring(8, 10);
+  const month = date.substring(5, 7);
+  const year = date.substring(0, 4);
+
   return {
-      day,
-      month,
-      year,
-      hour
+    day,
+    month,
+    year,
+    hour
   }
 }
 
@@ -20,8 +21,8 @@ export const dateToString = (date) => {
 }
 
 export const hours = (date) => {
-  const { day, month, year, hour } = dates(date);
-  return `${hour}`;
+  const startTime = moment(date).subtract(3, 'hours').format('HH:mm');
+  return `${startTime}`;
 }
 
 const dateToDate = (date) => {
@@ -34,15 +35,8 @@ export const getHoursToReservations = (date) => {
 }
 
 export const getTimeDifference = (reservationStartTime) => {
-  const duration = moment.duration(moment.utc(reservationStartTime).diff(moment().subtract(3, 'hours')));
-  const hours = duration.asHours();
-  const minutes = duration.asHours() >= 0 ? 
-    parseFloat(String(parseFloat(duration.asHours().toString().split('.')[1])).slice(0,2))*60/100
-  : -1;
-  // const minutes = duration.asHours()*60 / 100;
-  console.log(minutes + 1);
-  return { 
-    hours: Math.trunc(hours), 
-    minutes: parseInt(minutes < 60 ? String(minutes).slice(0,2) : String(minutes).slice(0,1)) + 1
-  };
+  let duration = moment.utc(moment(reservationStartTime).diff(moment())).format("HH:mm");
+  const hour = parseInt(String(duration.substring(0,2)));
+  const minutes = parseInt(String(duration.substring(3,5)));
+  return { hour, minutes: minutes + 1};
 }
