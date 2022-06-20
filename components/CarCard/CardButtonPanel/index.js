@@ -7,6 +7,7 @@ export default function CarButtonPanel({
   service,
   handleStartReservation,
   handleCarOpen,
+  handleCarClose,
   carOpen,
   handleEndReseration,
 }) {
@@ -15,13 +16,13 @@ export default function CarButtonPanel({
     {
       style: { backgroundColor: 'green' },
       icon: 'UNLOCK',
-      onPress: () => handleCarOpen(true),
+      onPress: () => handleCarOpen(),
       disabled: carOpen,
     },
     {
       style: { backgroundColor: 'red' },
       icon: 'LOCK',
-      onPress: () => handleCarOpen(false),
+      onPress: () => handleCarClose(),
       disabled: !carOpen,
     }
   ]
@@ -37,8 +38,9 @@ export default function CarButtonPanel({
     return (
       <>
         <HStack mt="5">
-          {car_buttons.map(cb => (
+          {car_buttons.map((cb, index) => (
             <CarButton
+              key={index}
               propStyle={cb.style}
               icon={ICON_NAME[cb.icon]}
               onPress={cb.onPress}
@@ -46,7 +48,14 @@ export default function CarButtonPanel({
             />
           ))}
         </HStack>
-        {!carOpen && <Button onPress={handleEndReseration}>Terminar reserva</Button>}
+        {!carOpen &&
+          <Button
+            onPress={handleEndReseration}
+            backgroundColor="#000000"
+            marginTop={5}
+            >
+              Terminar reserva
+        </Button>}
       </>
     )
   }

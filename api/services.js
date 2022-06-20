@@ -9,8 +9,7 @@ export const fetchService = async (plate, reservationId) => {
         const response = await axios.get(url, { headers: { 'Authorization': `Bearer ${token}` } });
         return response.data;
     } catch (error) {
-        console.log(error.message);
-        throw error;
+        if(error.response.status != 404) throw new Error(error.response.data.error);
     }
 }
 
@@ -21,8 +20,7 @@ export const createService = async (service) => {
         const response = await axios.post(url, service, { headers: { 'Authorization': `Bearer ${token}` } });
         return response.data;
     } catch (error) {
-        console.log(error.message);
-        throw error;
+        throw new Error(error.response.data.error);
     }
 }
 
@@ -33,7 +31,6 @@ export const updateService = async ({ id, body }) => {
         const response = await axios.patch(url, body, { headers: { 'Authorization': `Bearer ${token}` } });
         return response.data;
     } catch (error) {
-        console.log(error.message);
-        throw error;
+        throw new Error(error.response.data.error);
     }
 }

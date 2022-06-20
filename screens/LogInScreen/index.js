@@ -5,6 +5,7 @@ import GlobalContext from '../../components/globals/context'
 import { login as apiLogin } from '../../api/users'
 
 export default function LogInScreen() {
+
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
@@ -16,10 +17,9 @@ export default function LogInScreen() {
       let response = await apiLogin(email, password);
       if (response.token) login(response.token);
     } catch (error) {
-      openAlert();
+      openAlert(error.message);
     }
   }
-
   const windowW = Dimensions.get("screen").width;
 
   return (
@@ -58,7 +58,7 @@ export default function LogInScreen() {
                   placeholder="Ingrese su contraseña"
                 />
               </FormControl>
-              <Button mt="2" colorScheme="indigo" onPress={userLogin}>
+              <Button mt="2" backgroundColor="#000000" onPress={userLogin}>
                 Iniciar Sesión
               </Button>
             </VStack>
@@ -69,4 +69,6 @@ export default function LogInScreen() {
   );
 }
 
-const openAlert = () => Alert.alert('Ups!', 'Ocurrio un error al hacer login.', [{ text: 'OK', style: 'cancel' }]);
+const openAlert = (error) => {
+  Alert.alert('Error', error, [{ text: 'OK', style: 'cancel' }]);
+}
