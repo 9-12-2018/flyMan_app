@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Box, FlatList, HStack, Text } from "native-base";
+import { Box, FlatList } from "native-base";
 import { Dimensions, RefreshControl, Alert } from "react-native";
 import { fetchReservations } from "../../../../api/reservations";
 import Loader from '../../../../components/Loader';

@@ -29,14 +29,14 @@ export default StepFive = ({ data }) => {
     <>
       <View style={styles.container}>
         <View style={styles.form}>
-          {services.map((s) => (
-            <View style={[styles.checkBox, styles.marginTop]}>
+          {services.map((s, i) => (
+            <View style={[styles.checkBox, styles.marginTop]} key={s.label + i} >
               <CheckBox
-                  value={s.value}
-                  onValueChange={s.setter}
-                  style={styles.checkBoxSize}
+                value={s.value}
+                onValueChange={s.setter}
+                style={styles.checkBoxSize}
               />
-              <Text style={styles.marginLeft}>{s.label}</Text> 
+              <Text style={styles.marginLeft}>{s.label}</Text>
             </View>
           ))}
         </View>

@@ -21,7 +21,7 @@ export const dateToString = (date) => {
 }
 
 export const hours = (date) => {
-  const startTime = moment(date).subtract(3, 'hours').format('HH:mm');
+  const startTime = moment(date).format('HH:mm');
   return `${startTime}`;
 }
 
@@ -36,7 +36,7 @@ export const getHoursToReservations = (date) => {
 
 export const getTimeDifference = (reservationStartTime) => {
   let duration = moment.utc(moment(reservationStartTime).diff(moment())).format("HH:mm");
-  const hour = parseInt(String(duration.substring(0,2)));
-  const minutes = parseInt(String(duration.substring(3,5)));
-  return { hour, minutes: minutes + 1};
+  const hour = parseInt(String(duration.substring(0, 2)));
+  const minutes = parseInt(String(duration.substring(3, 5)));
+  return { hour, minutes: minutes + 1 };
 }

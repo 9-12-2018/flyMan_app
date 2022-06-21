@@ -1,16 +1,16 @@
-import { StyleSheet, StatusBar } from 'react-native';
+import { StyleSheet } from 'react-native';
 
 export default styles = StyleSheet.create({
     image: {
         resizeMode: "contain",
         width: 150,
-        height: 80,        
+        height: 80,
         alignSelf: 'center',
         marginBottom: 12
     },
     container: {
         flexDirection: 'column',
-        justifyContent: 'center',        
+        justifyContent: 'center',
     },
     card: {
         shadowColor: 'black',
