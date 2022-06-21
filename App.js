@@ -3,7 +3,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import * as SplashScreen from 'expo-splash-screen';
 import StackNavigation from './navigation/StackNavigation'
 import { saveToken, retrieveToken, removeToken } from './services/secureStorage';
-
+import SSRProvider from 'react-bootstrap/SSRProvider'
 
 export default function App() {
   const [appIsReady, setAppIsReady] = useState(false);
@@ -50,11 +50,13 @@ export default function App() {
   return (
     (!appIsReady)
       ? null
-      : <NavigationContainer
-        onReady={onLayoutRootView}
-      >
-        <StackNavigation token={token} login={login} logout={logout} />
-      </NavigationContainer>
+      : <SSRProvider>
+        <NavigationContainer
+          onReady={onLayoutRootView}
+        >
+          <StackNavigation token={token} login={login} logout={logout} />
+        </NavigationContainer>
+      </SSRProvider>
   );
 }
 

@@ -1,6 +1,5 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { SafeAreaView, Text, View, Button, Alert } from 'react-native';
-import { Image } from 'react-native';
 import { updateService } from '../../api/services';
 import StepOne from './stepOne';
 import StepTwo from './stepTwo';
@@ -32,7 +31,7 @@ const Stepper = ({
             title="Siguiente"
             color="#000000"
             onPress={nextStep} />
-            : <Button
+          : <Button
             title="Finalizar servicio"
             color="#000000"
             onPress={terminateService} />
@@ -76,7 +75,7 @@ export default function CarDetailScreen({ route, navigation }) {
   const [documents, setDocuments] = useState(false);
   const [cleanliness, setCleanliness] = useState(1);
   const [fuelLoad, setFuelLoad] = useState(false);
-  const [fuelLoadPrice, setFuelLoadPrice] = useState(0);
+  const [fuelLoadPrice, setFuelLoadPrice] = useState('');
   const [cleanTask, setCleanTask] = useState(false);
   const [inflateTireTask, setInflateTask] = useState(false);
   const [lampFixTask, setLampFixTask] = useState(false);
