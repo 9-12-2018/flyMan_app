@@ -30,7 +30,7 @@ carpeta principal crear un archivo sin nombre con la extensión .env para poner 
 dentro las variables de entorno necesarias. Solicitar dichas variables al equipo de
 desarrollo ya que no pueden ser de dominio público.
 .env example:
-```___________```
+```BASE_URL=```
 5) Finalmente para ejecutar el software, abrir una terminal en la IDE de desarrollo e
 ingresar el comando “expo start” para correr la aplicacion móvil de manera local en modo desarrollo:
 ```expo start```
